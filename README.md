@@ -17,7 +17,8 @@
 - IDE：基本最新の安定版（本概要更新時点では Xcode 15.2）
 - Swift：基本最新の安定版（本概要更新時点では Swift 5.9）
 - 開発ターゲット：基本最新の安定版（本概要更新時点では iOS 17.2）
-- サードパーティーライブラリーの利用：オープンソースのものに限り制限しない
+- サードパーティーライブラリー
+    - [nicklockwood/SwiftFormat](https://github.com/nicklockwood/SwiftFormat) 0.55.5
 
 ### 動作
 
@@ -25,7 +26,18 @@
 2. GitHub API（`search/repositories`）でリポジトリーを検索し、結果一覧を概要（リポジトリ名）で表示
 3. 特定の結果を選択したら、該当リポジトリの詳細（リポジトリ名、オーナーアイコン、プロジェクト言語、Star 数、Watcher 数、Fork 数、Issue 数）を表示
 
+### リンティング
+
+XcodeProject > 右クリック > SwiftFormatPlugin をクリックで、ソースコードが自動で綺麗に修正される。
+
 ## 課題取り組み
+
+### [ソースコードの可読性の向上 #2](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/2)
+
+- [Feature/2 readability](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/12)
+- [Feature/2 Fix Swift6 compile error on tests](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/13)
+
+一通り指示に対応した他、[nicklockwood/SwiftFormat](https://github.com/nicklockwood/SwiftFormat)を導入しさらにクリーンにしました。
 
 ### [ソースコードの安全性の向上 #3](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/3)
 
