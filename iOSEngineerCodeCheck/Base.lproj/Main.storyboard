@@ -82,8 +82,8 @@
                                 <color key="textColor" systemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="oOe-O2-3RS">
-                                <rect key="frame" x="20" y="600" width="374" height="120"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="oOe-O2-3RS" userLabel="Horizontal Stack View">
+                                <rect key="frame" x="20" y="610.5" width="374" height="120"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s3M-QO-Kom">
                                         <rect key="frame" x="0.0" y="0.0" width="78.5" height="20.5"/>
@@ -91,7 +91,7 @@
                                         <color key="textColor" systemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="0gb-01-GLC">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="0gb-01-GLC" userLabel="Vertical Stack View">
                                         <rect key="frame" x="309" y="0.0" width="65" height="120"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stars" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WZ-UA-R8O">
@@ -133,6 +133,7 @@
                             <constraint firstItem="oOe-O2-3RS" firstAttribute="width" secondItem="Iim-eb-8Ad" secondAttribute="width" id="dPu-j0-Myp"/>
                             <constraint firstItem="oOe-O2-3RS" firstAttribute="centerX" secondItem="4q1-pG-WSB" secondAttribute="centerX" id="kVV-YK-ePr"/>
                             <constraint firstItem="Iim-eb-8Ad" firstAttribute="centerY" secondItem="srK-fe-i1b" secondAttribute="centerY" multiplier="0.7" id="ruB-l0-4VM"/>
+                            <constraint firstItem="oOe-O2-3RS" firstAttribute="top" secondItem="4q1-pG-WSB" secondAttribute="bottom" constant="28" id="tXj-fl-Etr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="J6o-vL-S1z"/>
