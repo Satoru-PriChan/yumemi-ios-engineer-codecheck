@@ -178,6 +178,13 @@ final class DetailViewController: UIViewController {
 }
 ```
 
+### [バグを修正 #4](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/4)
+- [Feature/4 fix bugs ](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/16)
+- A タイプミスによりAPIレスポンスのwatchers_countが使用されないというパースエラーを修正。
+- B 垂直スタックビューのY位置を追加することで、詳細画面の画面が崩れていた点を修正
+- C ScrollViewを使用し、詳細画面のタイトルラベルの制約を修正。タイトル文字列が長すぎる場合、タイトルラベルが画面に表示しきれていなかった。
+- D `SearchViewController`の`DetailViewController`への参照にweakを追加し、メモリリーク防止コードを追加した。
+    - XcodeのInstrumentsとMemory Inspectorではメモリリークの兆候は見られなかったので、何も発見できず。念のためメモリリーク防止コードを追加。
 
 ## 参考情報
 
