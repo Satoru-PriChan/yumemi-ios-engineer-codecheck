@@ -14,11 +14,10 @@ final class SearchViewController: UITableViewController {
     @IBOutlet private var searchBar: UISearchBar!
 
     private var task: URLSessionTask?
-    private var searchWord: String!
-    private var url: String!
-
+    private var searchWord: String?
+    private var url: String?
     var fetchedRepositories: [[String: Any]] = []
-    var selectedIndex: Int!
+    var selectedIndex: Int?
 
     // MARK: - LifeCycle
 
@@ -32,7 +31,7 @@ final class SearchViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
         if segue.identifier == "Detail" {
-            let detailViewController = segue.destination as! DetailViewController
+            guard let detailViewController = segue.destination as? DetailViewController else { return }
             detailViewController.searchViewController = self
         }
     }
@@ -52,22 +51,35 @@ extension SearchViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchWord = searchBar.text!
+        guard let text = searchBar.text, !text.isEmpty else { return }
+        searchWord = text
+        guard let url = URL(string: "https://api.github.com/search/repositories?q=\(searchWord!)") else {
+            fatalError("Github URL is invalid")
+        }
 
-        guard searchWord.count != 0 else { return }
-
-        url = "https://api.github.com/search/repositories?q=\(searchWord!)"
-        task = URLSession.shared.dataTask(
-            with: URL(
-                string: url
-            )!
-        ) { data, _, _ in
-            if let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any],
-               let items = obj["items"] as? [[String: Any]]
-            {
+        task = URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data else {
                 Task { @MainActor in
-                    self.fetchedRepositories = items
-                    self.tableView.reloadData()
+                    self.showErrorAlert()
+                }
+                return
+            }
+            do {
+                if let obj = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   let items = obj["items"] as? [[String: Any]]
+                {
+                    Task { @MainActor in
+                        self.fetchedRepositories = items
+                        self.tableView.reloadData()
+                    }
+                } else {
+                    Task { @MainActor in
+                        self.showErrorAlert()
+                    }
+                }
+            } catch {
+                Task { @MainActor in
+                    self.showErrorAlert()
                 }
             }
         }
@@ -76,7 +88,6 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 // MARK: - UITableViewDelegate
-
 extension SearchViewController {
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return fetchedRepositories.count
@@ -85,8 +96,8 @@ extension SearchViewController {
     override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         let repository = fetchedRepositories[indexPath.row]
-        cell.textLabel?.text = repository["full_name"] as? String ?? ""
-        cell.detailTextLabel?.text = repository["language"] as? String ?? ""
+        cell.textLabel?.text = repository["full_name"] as? String ?? "Unknown Repository"
+        cell.detailTextLabel?.text = repository["language"] as? String ?? "Unknown Language"
         cell.tag = indexPath.row
         return cell
     }
