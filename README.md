@@ -29,6 +29,7 @@
 ### リンティング
 
 XcodeProject > 右クリック > SwiftFormatPlugin をクリックで、ソースコードが自動で綺麗に修正される。
+<img width="1440" alt="截屏2025-02-25 15 52 09" src="https://github.com/user-attachments/assets/b487abd8-9ac8-4cdf-9ab4-ab8af7b2569f" />
 
 ## 課題取り組み
 
