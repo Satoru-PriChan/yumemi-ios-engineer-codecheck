@@ -21,11 +21,21 @@ final class DetailViewController: UIViewController {
 
     weak var searchViewController: SearchViewController?
 
+    private let githubRepository = GithubRepository()
+
     // MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureView()
+        Task {
+            await fetchAndSetImage()
+        }
+    }
 
+    // MARK: - Private functions
+
+    private func configureView() {
         guard let selectedIndex = searchViewController?.selectedIndex,
               searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
               let selectedRepository = searchViewController?.fetchedRepositories[selectedIndex] else { return }
@@ -36,32 +46,29 @@ final class DetailViewController: UIViewController {
         watchersLabel.text = "\(selectedRepository["watchers_count"] as? Int ?? 0) watchers"
         forksLabel.text = "\(selectedRepository["forks_count"] as? Int ?? 0) forks"
         openIssuesLabel.text = "\(selectedRepository["open_issues_count"] as? Int ?? 0) open issues"
-        fetchAndSetImage()
     }
 
-    // MARK: - Private functions
-
-    private func fetchAndSetImage() {
+    private func fetchAndSetImage() async {
         guard let selectedIndex = searchViewController?.selectedIndex,
               searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
               let owner = searchViewController?.fetchedRepositories[selectedIndex]["owner"] as? [String: Any],
-              let imgURLString = owner["avatar_url"] as? String,
-              let imgURL = URL(string: imgURLString)
+              let imgURLString = owner["avatar_url"] as? String
         else {
-            showErrorAlert()
+            await MainActor.run {
+                self.showErrorAlert()
+            }
             return
         }
 
-        URLSession.shared.dataTask(with: imgURL) { data, _, _ in
-            guard let data = data, let image = UIImage(data: data) else {
-                Task { @MainActor in
-                    self.showErrorAlert()
-                }
-                return
-            }
-            DispatchQueue.main.async {
+        do {
+            let image = try await githubRepository.fetchImage(from: imgURLString)
+            await MainActor.run {
                 self.imageView.image = image
             }
-        }.resume()
+        } catch {
+            await MainActor.run {
+                self.showErrorAlert()
+            }
+        }
     }
 }
