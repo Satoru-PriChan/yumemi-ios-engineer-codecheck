@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SearchViewController.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by 史 翔新 on 2020/04/20.
@@ -9,10 +9,9 @@
 import UIKit
 
 final class SearchViewController: UITableViewController {
-
     // MARK: - Properties
 
-    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet private var searchBar: UISearchBar!
 
     private var task: URLSessionTask?
     private var searchWord: String!
@@ -31,8 +30,8 @@ final class SearchViewController: UITableViewController {
 
     // MARK: - Segue
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Detail"{
+    override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
+        if segue.identifier == "Detail" {
             let detailViewController = segue.destination as! DetailViewController
             detailViewController.searchViewController = self
         }
@@ -48,12 +47,11 @@ extension SearchViewController: UISearchBarDelegate {
         return true
     }
 
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_: UISearchBar, textDidChange _: String) {
         task?.cancel()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-
         searchWord = searchBar.text!
 
         guard searchWord.count != 0 else { return }
@@ -63,14 +61,15 @@ extension SearchViewController: UISearchBarDelegate {
             with: URL(
                 string: url
             )!
-        ) { (data, res, err) in
+        ) { data, _, _ in
             if let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any],
-                let items = obj["items"] as? [[String: Any]] {
-                    Task { @MainActor in
-                        self.fetchedRepositories = items
-                        self.tableView.reloadData()
-                    }
+               let items = obj["items"] as? [[String: Any]]
+            {
+                Task { @MainActor in
+                    self.fetchedRepositories = items
+                    self.tableView.reloadData()
                 }
+            }
         }
         task?.resume()
     }
@@ -79,11 +78,11 @@ extension SearchViewController: UISearchBarDelegate {
 // MARK: - UITableViewDelegate
 
 extension SearchViewController {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return fetchedRepositories.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         let repository = fetchedRepositories[indexPath.row]
         cell.textLabel?.text = repository["full_name"] as? String ?? ""
@@ -92,7 +91,7 @@ extension SearchViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
         performSegue(withIdentifier: "Detail", sender: self)
     }
