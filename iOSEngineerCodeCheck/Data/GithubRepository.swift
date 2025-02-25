@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+/// Github repository API caller
+/// Modifier `final` is allowed before actor https://forums.swift.org/t/why-can-you-constrain-to-final-classes-and-actors/65256/3
 final actor GithubRepository {
     private let session: URLSession
 
@@ -16,7 +18,6 @@ final actor GithubRepository {
         self.session = session
     }
 
-    /// GitHub リポジトリを検索する
     func searchRepositories(query: String) async throws -> [[String: any Sendable]] {
         guard let url = URL(string: "https://api.github.com/search/repositories?q=\(query)") else {
             throw NSError(domain: "Invalid URL", code: 400, userInfo: nil)
@@ -33,7 +34,6 @@ final actor GithubRepository {
         return items
     }
 
-    /// 画像データを取得する
     func fetchImage(from urlString: String) async throws -> UIImage {
         guard let url = URL(string: urlString) else {
             throw NSError(domain: "Invalid Image URL", code: 400, userInfo: nil)
