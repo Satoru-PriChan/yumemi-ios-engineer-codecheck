@@ -19,21 +19,21 @@ final class DetailViewController: UIViewController {
     @IBOutlet private var forksLabel: UILabel!
     @IBOutlet private var openIssuesLabel: UILabel!
 
-    var searchViewController: SearchViewController!
+    weak var searchViewController: SearchViewController?
 
     // MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let selectedIndex = searchViewController.selectedIndex,
-              searchViewController.fetchedRepositories.indices.contains(selectedIndex) else { return }
-        let selectedRepository = searchViewController.fetchedRepositories[selectedIndex]
+        guard let selectedIndex = searchViewController?.selectedIndex,
+              searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
+              let selectedRepository = searchViewController?.fetchedRepositories[selectedIndex] else { return }
 
         titleLabel.text = selectedRepository["full_name"] as? String ?? "Unknown Repository"
         languageLabel.text = "Written in \(selectedRepository["language"] as? String ?? "Unknown Language")"
         starsLabel.text = "\(selectedRepository["stargazers_count"] as? Int ?? 0) stars"
-        watchersLabel.text = "\(selectedRepository["wachers_count"] as? Int ?? 0) watchers"
+        watchersLabel.text = "\(selectedRepository["watchers_count"] as? Int ?? 0) watchers"
         forksLabel.text = "\(selectedRepository["forks_count"] as? Int ?? 0) forks"
         openIssuesLabel.text = "\(selectedRepository["open_issues_count"] as? Int ?? 0) open issues"
         fetchAndSetImage()
@@ -42,9 +42,9 @@ final class DetailViewController: UIViewController {
     // MARK: - Private functions
 
     private func fetchAndSetImage() {
-        guard let selectedIndex = searchViewController.selectedIndex,
-              searchViewController.fetchedRepositories.indices.contains(selectedIndex),
-              let owner = searchViewController.fetchedRepositories[selectedIndex]["owner"] as? [String: Any],
+        guard let selectedIndex = searchViewController?.selectedIndex,
+              searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
+              let owner = searchViewController?.fetchedRepositories[selectedIndex]["owner"] as? [String: Any],
               let imgURLString = owner["avatar_url"] as? String,
               let imgURL = URL(string: imgURLString)
         else {
