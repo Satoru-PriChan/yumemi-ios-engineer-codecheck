@@ -24,7 +24,6 @@ extension UIViewController {
             preferredStyle: .alert
         )
 
-        // UIAlertAction を追加（「OK」ボタン）
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             okAction?()
         }
