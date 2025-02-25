@@ -21,7 +21,7 @@ final class DetailViewController: UIViewController {
 
     weak var searchViewController: SearchViewController?
 
-    private let githubRepository = GithubRepository() // actor インスタンス
+    private let githubRepository = GithubRepository()
 
     // MARK: - LifeCycle
 
