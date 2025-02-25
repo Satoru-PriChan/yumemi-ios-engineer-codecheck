@@ -25,22 +25,146 @@
 2. GitHub API（`search/repositories`）でリポジトリーを検索し、結果一覧を概要（リポジトリ名）で表示
 3. 特定の結果を選択したら、該当リポジトリの詳細（リポジトリ名、オーナーアイコン、プロジェクト言語、Star 数、Watcher 数、Fork 数、Issue 数）を表示
 
-## 課題取り組み方法
+## 課題取り組み
 
-Issues を確認した上、本プロジェクトを [**Duplicate** してください](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository)（Fork しないようにしてください。必要ならプライベートリポジトリーにしても大丈夫です）。今後のコミットは全てご自身のリポジトリーで行ってください。
+### [ソースコードの安全性の向上 #3](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/3)
 
-コードチェックの課題 Issue は全て [`課題`](https://github.com/yumemi/ios-engineer-codecheck/milestone/1) Milestone がついており、難易度に応じて Label が [`初級`](https://github.com/yumemi/ios-engineer-codecheck/issues?q=is%3Aopen+is%3Aissue+label%3A初級+milestone%3A課題)、[`中級`](https://github.com/yumemi/ios-engineer-codecheck/issues?q=is%3Aopen+is%3Aissue+label%3A中級+milestone%3A課題+) と [`ボーナス`](https://github.com/yumemi/ios-engineer-codecheck/issues?q=is%3Aopen+is%3Aissue+label%3Aボーナス+milestone%3A課題+) に分けられています。課題の必須／選択は下記の表とします：
+- [Feature/3 improve code safety](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/14)
 
-|   | 初級 | 中級 | ボーナス
-|--:|:--:|:--:|:--:|
-| 新卒／未経験者 | 必須 | 選択 | 選択 |
-| 中途／経験者 | 必須 | 必須 | 選択 |
+面倒だったため以下のプロンプトでQWEN(AI)に直してもらった後、エラーアラートの実装は自分で追加しました。ネットワークを切断するとエラーアラートが動作することを確認しました。
+渡しているコードはゆめみ様の公開リポジトリのコードですから、AIに渡しても問題ないと判断しました。その後、SwiftFormatによりフォーマットを綺麗にしました。
 
+プロンプト: 
+```
+以下のSwiftファイルには安全性の低いコードたくさんあります。下記のリストを参考に、安全性の低いコードを撲滅し、安全性を高めましょう。ただし以下の観点以外の修正はしないでください。1.強制アンラップ
+2. 強制ダウンキャスト
+3.不必要なIUO
+4.想定外の nil の握り潰し Swiftファイルは以下の二つです。SearchViewController: //
+//  SearchViewController.swift
+//  iOSEngineerCodeCheck
+//
+//  Created by 史 翔新 on 2020/04/20.
+//  Copyright © 2020 YUMEMI Inc. All rights reserved.
+//
+import UIKit
+final class SearchViewController: UITableViewController {
+    // MARK: - Properties
+    @IBOutlet private var searchBar: UISearchBar!
+    private var task: URLSessionTask?
+    private var searchWord: String!
+    private var url: String!
+    var fetchedRepositories: [[String: Any]] = []
+    var selectedIndex: Int!
+    // MARK: - LifeCycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchBar.text = "GitHubのリポジトリを検索できるよー"
+        searchBar.delegate = self
+    }
+    // MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
+        if segue.identifier == "Detail" {
+            let detailViewController = segue.destination as! DetailViewController
+            detailViewController.searchViewController = self
+        }
+    }
+}
+// MARK: - UISearchBarDelegate
+extension SearchViewController: UISearchBarDelegate {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        // 初期のテキスト削除
+        searchBar.text = ""
+        return true
+    }
+    func searchBar(_: UISearchBar, textDidChange _: String) {
+        task?.cancel()
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchWord = searchBar.text!
+        guard searchWord.count != 0 else { return }
+        url = "https://api.github.com/search/repositories?q=\(searchWord!)"
+        task = URLSession.shared.dataTask(
+            with: URL(
+                string: url
+            )!
+        ) { data, _, _ in
+            if let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any],
+               let items = obj["items"] as? [[String: Any]]
+            {
+                Task { @MainActor in
+                    self.fetchedRepositories = items
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        task?.resume()
+    }
+}
+// MARK: - UITableViewDelegate
+extension SearchViewController {
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        return fetchedRepositories.count
+    }
+    override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        let repository = fetchedRepositories[indexPath.row]
+        cell.textLabel?.text = repository["full_name"] as? String ?? ""
+        cell.detailTextLabel?.text = repository["language"] as? String ?? ""
+        cell.tag = indexPath.row
+        return cell
+    }
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedIndex = indexPath.row
+        performSegue(withIdentifier: "Detail", sender: self)
+    }
+}
+最後のファイルです。DetailViewController: //
+//  DetailViewController.swift
+//  iOSEngineerCodeCheck
+//
+//  Created by 史 翔新 on 2020/04/21.
+//  Copyright © 2020 YUMEMI Inc. All rights reserved.
+//
+import UIKit
+final class DetailViewController: UIViewController {
+    // MARK: - Properties
+    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var languageLabel: UILabel!
+    @IBOutlet private var starsLabel: UILabel!
+    @IBOutlet private var watchersLabel: UILabel!
+    @IBOutlet private var forksLabel: UILabel!
+    @IBOutlet private var openIssuesLabel: UILabel!
+    var searchViewController: SearchViewController!
+    // MARK: - LifeCycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let selectedRepository = searchViewController.fetchedRepositories[searchViewController.selectedIndex]
+        languageLabel.text = "Written in \(selectedRepository["language"] as? String ?? "")"
+        starsLabel.text = "\(selectedRepository["stargazers_count"] as? Int ?? 0) stars"
+        watchersLabel.text = "\(selectedRepository["wachers_count"] as? Int ?? 0) watchers"
+        forksLabel.text = "\(selectedRepository["forks_count"] as? Int ?? 0) forks"
+        openIssuesLabel.text = "\(selectedRepository["open_issues_count"] as? Int ?? 0) open issues"
+        fetchAndSetImage()
+    }
+    // MARK: - Private functions
+    private func fetchAndSetImage() {
+        let selectedRepository = searchViewController.fetchedRepositories[searchViewController.selectedIndex]
+        titleLabel.text = selectedRepository["full_name"] as? String
+        if let owner = selectedRepository["owner"] as? [String: Any],
+           let imgURL = owner["avatar_url"] as? String
+        {
+            URLSession.shared.dataTask(with: URL(string: imgURL)!) { data, _, _ in
+                let image = UIImage(data: data!)!
+                DispatchQueue.main.async {
+                    self.imageView.image = image
+                }
+            }.resume()
+        }
+    }
+}
+```
 
-課題 Issueをご自身のリポジトリーにコピーするGitHub Actionsをご用意しております。  
-[こちらのWorkflow](./.github/workflows/copy-issues.yml)を[手動でトリガーする](https://docs.github.com/ja/actions/managing-workflow-runs/manually-running-a-workflow)ことでコピーできますのでご活用下さい。
-
-課題が完成したら、リポジトリーのアドレスを教えてください。
 
 ## 参考情報
 
