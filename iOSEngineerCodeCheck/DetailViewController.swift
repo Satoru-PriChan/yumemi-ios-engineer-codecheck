@@ -26,9 +26,12 @@ final class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let selectedRepository = searchViewController.fetchedRepositories[searchViewController.selectedIndex]
+        guard let selectedIndex = searchViewController.selectedIndex,
+              searchViewController.fetchedRepositories.indices.contains(selectedIndex) else { return }
+        let selectedRepository = searchViewController.fetchedRepositories[selectedIndex]
 
-        languageLabel.text = "Written in \(selectedRepository["language"] as? String ?? "")"
+        titleLabel.text = selectedRepository["full_name"] as? String ?? "Unknown Repository"
+        languageLabel.text = "Written in \(selectedRepository["language"] as? String ?? "Unknown Language")"
         starsLabel.text = "\(selectedRepository["stargazers_count"] as? Int ?? 0) stars"
         watchersLabel.text = "\(selectedRepository["wachers_count"] as? Int ?? 0) watchers"
         forksLabel.text = "\(selectedRepository["forks_count"] as? Int ?? 0) forks"
@@ -39,17 +42,26 @@ final class DetailViewController: UIViewController {
     // MARK: - Private functions
 
     private func fetchAndSetImage() {
-        let selectedRepository = searchViewController.fetchedRepositories[searchViewController.selectedIndex]
-        titleLabel.text = selectedRepository["full_name"] as? String
-        if let owner = selectedRepository["owner"] as? [String: Any],
-           let imgURL = owner["avatar_url"] as? String
-        {
-            URLSession.shared.dataTask(with: URL(string: imgURL)!) { data, _, _ in
-                let image = UIImage(data: data!)!
-                DispatchQueue.main.async {
-                    self.imageView.image = image
-                }
-            }.resume()
+        guard let selectedIndex = searchViewController.selectedIndex,
+              searchViewController.fetchedRepositories.indices.contains(selectedIndex),
+              let owner = searchViewController.fetchedRepositories[selectedIndex]["owner"] as? [String: Any],
+              let imgURLString = owner["avatar_url"] as? String,
+              let imgURL = URL(string: imgURLString)
+        else {
+            showErrorAlert()
+            return
         }
+
+        URLSession.shared.dataTask(with: imgURL) { data, _, _ in
+            guard let data = data, let image = UIImage(data: data) else {
+                Task { @MainActor in
+                    self.showErrorAlert()
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self.imageView.image = image
+            }
+        }.resume()
     }
 }
