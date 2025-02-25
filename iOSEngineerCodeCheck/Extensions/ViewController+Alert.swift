@@ -16,7 +16,7 @@ extension UIViewController {
     ) {
         showAlert(title: title, message: message, okAction: okAction)
     }
-    
+
     func showAlert(title: String, message: String, okAction: (() -> Void)? = nil) {
         let alert = UIAlertController(
             title: title,
@@ -33,4 +33,3 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
 }
-

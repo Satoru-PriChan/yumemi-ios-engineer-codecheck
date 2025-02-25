@@ -88,6 +88,7 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 // MARK: - UITableViewDelegate
+
 extension SearchViewController {
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return fetchedRepositories.count

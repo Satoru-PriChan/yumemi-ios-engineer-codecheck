@@ -40,13 +40,15 @@ final class DetailViewController: UIViewController {
     }
 
     // MARK: - Private functions
+
     private func fetchAndSetImage() {
         guard let selectedIndex = searchViewController.selectedIndex,
               searchViewController.fetchedRepositories.indices.contains(selectedIndex),
               let owner = searchViewController.fetchedRepositories[selectedIndex]["owner"] as? [String: Any],
               let imgURLString = owner["avatar_url"] as? String,
-              let imgURL = URL(string: imgURLString) else {
-              showErrorAlert()
+              let imgURL = URL(string: imgURLString)
+        else {
+            showErrorAlert()
             return
         }
 
