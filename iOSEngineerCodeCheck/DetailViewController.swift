@@ -33,7 +33,7 @@ final class DetailViewController: UIViewController {
         titleLabel.text = selectedRepository["full_name"] as? String ?? "Unknown Repository"
         languageLabel.text = "Written in \(selectedRepository["language"] as? String ?? "Unknown Language")"
         starsLabel.text = "\(selectedRepository["stargazers_count"] as? Int ?? 0) stars"
-        watchersLabel.text = "\(selectedRepository["wachers_count"] as? Int ?? 0) watchers"
+        watchersLabel.text = "\(selectedRepository["watchers_count"] as? Int ?? 0) watchers"
         forksLabel.text = "\(selectedRepository["forks_count"] as? Int ?? 0) forks"
         openIssuesLabel.text = "\(selectedRepository["open_issues_count"] as? Int ?? 0) open issues"
         fetchAndSetImage()
