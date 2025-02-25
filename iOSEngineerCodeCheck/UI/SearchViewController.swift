@@ -12,12 +12,12 @@ final class SearchViewController: UITableViewController {
     // MARK: - Properties
 
     @IBOutlet private var searchBar: UISearchBar!
-
-    private var task: URLSessionTask?
     private var searchWord: String?
-    private var url: String?
-    var fetchedRepositories: [[String: Any]] = []
+    private var task: Task<Void, Never>?
+    var fetchedRepositories: [[String: any Sendable]] = []
     var selectedIndex: Int?
+
+    private let githubRepository = GithubRepository()
 
     // MARK: - LifeCycle
 
@@ -53,37 +53,20 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text, !text.isEmpty else { return }
         searchWord = text
-        guard let url = URL(string: "https://api.github.com/search/repositories?q=\(searchWord!)") else {
-            fatalError("Github URL is invalid")
-        }
 
-        task = URLSession.shared.dataTask(with: url) { data, _, _ in
-            guard let data = data else {
-                Task { @MainActor in
-                    self.showErrorAlert()
-                }
-                return
-            }
+        task = Task {
             do {
-                if let obj = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                   let items = obj["items"] as? [[String: Any]]
-                {
-                    Task { @MainActor in
-                        self.fetchedRepositories = items
-                        self.tableView.reloadData()
-                    }
-                } else {
-                    Task { @MainActor in
-                        self.showErrorAlert()
-                    }
+                let repositories = try await githubRepository.searchRepositories(query: text)
+                await MainActor.run {
+                    self.fetchedRepositories = repositories
+                    self.tableView.reloadData()
                 }
             } catch {
-                Task { @MainActor in
+                await MainActor.run {
                     self.showErrorAlert()
                 }
             }
         }
-        task?.resume()
     }
 }
 
