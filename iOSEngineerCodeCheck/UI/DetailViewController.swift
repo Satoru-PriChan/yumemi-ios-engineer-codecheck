@@ -20,9 +20,9 @@ final class DetailViewController: UIViewController {
     @IBOutlet private var openIssuesLabel: UILabel!
 
     weak var searchViewController: SearchViewController?
-    
+
     private let githubRepository = GithubRepository() // actor インスタンス
-    
+
     // MARK: - LifeCycle
 
     override func viewDidLoad() {
@@ -32,9 +32,9 @@ final class DetailViewController: UIViewController {
             await fetchAndSetImage()
         }
     }
-    
+
     // MARK: - Private functions
-    
+
     private func configureView() {
         guard let selectedIndex = searchViewController?.selectedIndex,
               searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
@@ -47,7 +47,7 @@ final class DetailViewController: UIViewController {
         forksLabel.text = "\(selectedRepository["forks_count"] as? Int ?? 0) forks"
         openIssuesLabel.text = "\(selectedRepository["open_issues_count"] as? Int ?? 0) open issues"
     }
-    
+
     private func fetchAndSetImage() async {
         guard let selectedIndex = searchViewController?.selectedIndex,
               searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
@@ -59,7 +59,7 @@ final class DetailViewController: UIViewController {
             }
             return
         }
-        
+
         do {
             let image = try await githubRepository.fetchImage(from: imgURLString)
             await MainActor.run {
