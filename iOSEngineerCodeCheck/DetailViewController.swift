@@ -28,7 +28,7 @@ final class DetailViewController: UIViewController {
 
         guard let selectedIndex = searchViewController?.selectedIndex,
               searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
-            let selectedRepository = searchViewController?.fetchedRepositories[selectedIndex] else { return }
+              let selectedRepository = searchViewController?.fetchedRepositories[selectedIndex] else { return }
 
         titleLabel.text = selectedRepository["full_name"] as? String ?? "Unknown Repository"
         languageLabel.text = "Written in \(selectedRepository["language"] as? String ?? "Unknown Language")"
