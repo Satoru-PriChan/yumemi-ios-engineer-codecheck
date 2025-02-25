@@ -188,6 +188,7 @@ final class DetailViewController: UIViewController {
 
 ### [Fat VC の回避 #5](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/5)
 - [Feature/5 avoid fat vc](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/17)
+- [Feature/5 Update README](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/18)
 - Github リポジトリ APIコールをするactor `GithubRepository`を設け、APIコールの責務をViewController達から分離した。
 - QWENで以下のプロンプトを入力しやってもらった。[Swift6関連でエラーが出ていたので、それは自分で修正した](https://qiita.com/satoru_pripara/items/df491bfd412f510927f8#non-sendable-type-string--any-returned-by-implicitly-asynchronous-call-to-actor-isolated-function-cannot-cross-actor-boundary)。
 
