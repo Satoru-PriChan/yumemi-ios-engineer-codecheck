@@ -9,6 +9,7 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
+    // MARK: - Properties
 
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
@@ -19,6 +20,8 @@ final class DetailViewController: UIViewController {
     @IBOutlet private weak var openIssuesLabel: UILabel!
 
     var searchViewController: SearchViewController!
+
+    // MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +35,8 @@ final class DetailViewController: UIViewController {
         openIssuesLabel.text = "\(selectedRepository["open_issues_count"] as? Int ?? 0) open issues"
         fetchAndSetImage()
     }
+
+    // MARK: - Private functions
 
     private func fetchAndSetImage(){
         let selectedRepository = searchViewController.fetchedRepositories[searchViewController.selectedIndex]

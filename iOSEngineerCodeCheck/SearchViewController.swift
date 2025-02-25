@@ -8,7 +8,9 @@
 
 import UIKit
 
-final class SearchViewController: UITableViewController, UISearchBarDelegate {
+final class SearchViewController: UITableViewController {
+
+    // MARK: - Properties
 
     @IBOutlet private weak var searchBar: UISearchBar!
 
@@ -19,12 +21,27 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
     var fetchedRepositories: [[String: Any]] = []
     var selectedIndex: Int!
 
+    // MARK: - LifeCycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.text = "GitHubのリポジトリを検索できるよー"
         searchBar.delegate = self
     }
 
+    // MARK: - Segue
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Detail"{
+            let detailViewController = segue.destination as! DetailViewController
+            detailViewController.searchViewController = self
+        }
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension SearchViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         // 初期のテキスト削除
         searchBar.text = ""
@@ -57,14 +74,11 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
         }
         task?.resume()
     }
+}
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Detail"{
-            let detailViewController = segue.destination as! DetailViewController
-            detailViewController.searchViewController = self
-        }
-    }
+// MARK: - UITableViewDelegate
 
+extension SearchViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedRepositories.count
     }
