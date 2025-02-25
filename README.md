@@ -35,7 +35,7 @@ XcodeProject > 右クリック > SwiftFormatPlugin をクリックで、ソー�
 ### [ソースコードの可読性の向上 #2](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/2)
 
 - [Feature/2 readability](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/12)
-- [Feature/2 Fix Swift6 compile error on tests](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/13)
+- [Feature/2 Update README](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/15)
 
 一通り指示に対応した他、[nicklockwood/SwiftFormat](https://github.com/nicklockwood/SwiftFormat)を導入しさらにクリーンにしました。
 
