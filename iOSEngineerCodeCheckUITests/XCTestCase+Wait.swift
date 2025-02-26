@@ -12,7 +12,7 @@ import XCTest
 extension XCTestCase {
     func waitToAppear(for element: XCUIElement,
                       timeout: TimeInterval = 5,
-                      file: StaticString = #file,
+                      file: StaticString = #filePath,
                       line: UInt = #line)
     {
         let predicate = NSPredicate(format: "exists == true")
@@ -23,7 +23,7 @@ extension XCTestCase {
 
     func waitToHittable(for element: XCUIElement,
                         timeout: TimeInterval = 5,
-                        file: StaticString = #file,
+                        file: StaticString = #filePath,
                         line: UInt = #line) -> XCUIElement
     {
         let predicate = NSPredicate(format: "hittable == true")
