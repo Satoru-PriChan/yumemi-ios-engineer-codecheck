@@ -37,6 +37,12 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         setUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Make tap possible again
+        tableView.isUserInteractionEnabled = true
+    }
 
     // MARK: - Private function
 
@@ -80,6 +86,8 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
     }
 
     override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Prevent quick multiple tap
+        tableView.isUserInteractionEnabled = false
         guard let repository = viewModel?.repositories[indexPath.row] else {
             showErrorAlert()
             return

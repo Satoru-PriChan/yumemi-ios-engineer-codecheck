@@ -186,6 +186,9 @@ final class DetailViewController: UIViewController {
 - C ScrollViewを使用し、詳細画面のタイトルラベルの制約を修正。タイトル文字列が長すぎる場合、タイトルラベルが画面に表示しきれていなかった。
 - D `SearchViewController`の`DetailViewController`への参照にweakを追加し、メモリリーク防止コードを追加した。
     - XcodeのInstrumentsとMemory Inspectorではメモリリークの兆候は見られなかったので、何も発見できず。念のためメモリリーク防止コードを追加。
+- [Bug: Prevent quick multiple taps4](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/24)
+- クイックマルチタップを防ぐ
+    - クイックマルチタップにより、複数のDetailViewControllerが表示されることがあった。
 
 ### [Fat VC の回避 #5](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/5)
 - [Feature/5 avoid fat vc](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/17)
