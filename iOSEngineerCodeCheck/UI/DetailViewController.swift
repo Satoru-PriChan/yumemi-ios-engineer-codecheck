@@ -34,7 +34,7 @@ final class DetailViewController: UIViewController {
     }
 
     // MARK: - Private functions
-    
+
     /// Query function
     private func fetchSelectedRepository() -> GithubRepositoryModel? {
         guard let selectedIndex = searchViewController?.selectedIndex,
@@ -42,7 +42,7 @@ final class DetailViewController: UIViewController {
               let selectedRepository = searchViewController?.fetchedRepositories[selectedIndex] else { return nil }
         return selectedRepository
     }
-    
+
     /// Command function
     private func updateUI(with repository: GithubRepositoryModel) {
         titleLabel.text = repository.fullName
@@ -59,15 +59,15 @@ final class DetailViewController: UIViewController {
     }
 
     // MARK: - Private functions - Images
-    
+
     private func fetchImage(from urlString: String) async throws -> UIImage {
         return try await githubRepository.fetchImage(from: urlString)
     }
-    
+
     private func setImage(to imageView: UIImageView, image: UIImage?) {
         imageView.image = image
     }
-    
+
     private func fetchAndSetImage() async {
         guard let selectedIndex = searchViewController?.selectedIndex,
               searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
