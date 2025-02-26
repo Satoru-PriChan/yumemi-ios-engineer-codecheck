@@ -9,9 +9,15 @@
 import Foundation
 import UIKit
 
+protocol GithubRepositoryProtocol: Sendable {
+    init(session: URLSession)
+    func searchRepositories(query: String) async throws -> [GithubRepositoryEntity]
+    func fetchImage(from urlString: String) async throws -> UIImage
+}
+
 /// Github repository API caller
 /// Modifier `final` is allowed before actor https://forums.swift.org/t/why-can-you-constrain-to-final-classes-and-actors/65256/3
-final actor GithubRepository {
+final actor GithubRepository: GithubRepositoryProtocol {
     private let session: URLSession
     init(session: URLSession = .shared) {
         self.session = session

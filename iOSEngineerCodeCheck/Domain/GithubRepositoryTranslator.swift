@@ -8,7 +8,12 @@
 
 import Foundation
 
-final class GithubRepositoryTranslator {
+protocol GithubRepositoryTranslatorProtocol {
+    func translate(from entity: GithubRepositoryEntity) -> GithubRepositoryModel
+    func translate(from entities: [GithubRepositoryEntity]) -> [GithubRepositoryModel]
+}
+
+final class GithubRepositoryTranslator: GithubRepositoryTranslatorProtocol {
     func translate(from entity: GithubRepositoryEntity) -> GithubRepositoryModel {
         return GithubRepositoryModel(
             fullName: entity.fullName,

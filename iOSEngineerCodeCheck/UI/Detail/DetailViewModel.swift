@@ -11,15 +11,37 @@ import Foundation
 import UIKit
 
 @MainActor
-final class DetailViewModel {
+protocol DetailViewModelProtocol {
+    init(repository: GithubRepositoryModel, githubRepository: GithubRepositoryProtocol)
+    var repositoryPublisher: Published<GithubRepositoryModel>.Publisher { get }
+    var avatarImagePublisher: Published<UIImage?>.Publisher { get }
+    var errorMessagePublisher: Published<String?>.Publisher { get }
+    func fetchAvatarImage() async
+}
+
+@MainActor
+final class DetailViewModel: DetailViewModelProtocol {
+    var repositoryPublisher: Published<GithubRepositoryModel>.Publisher {
+        $repository
+    }
+    var avatarImagePublisher: Published<UIImage?>.Publisher {
+        $avatarImage
+    }
+    var errorMessagePublisher: Published<String?>.Publisher {
+        $errorMessage
+    }
+    
     @Published var repository: GithubRepositoryModel
     @Published var avatarImage: UIImage?
     @Published var errorMessage: String?
 
-    private let githubRepository: GithubRepository
+    private let githubRepository: GithubRepositoryProtocol
     private var cancellables = Set<AnyCancellable>()
 
-    init(repository: GithubRepositoryModel, githubRepository: GithubRepository = GithubRepository()) {
+    init(
+        repository: GithubRepositoryModel,
+        githubRepository: GithubRepositoryProtocol = GithubRepository()
+    ) {
         self.repository = repository
         self.githubRepository = githubRepository
     }

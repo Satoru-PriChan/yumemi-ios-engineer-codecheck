@@ -12,7 +12,7 @@ import Combine
 struct DetailViewControllerFactory {
     private init() {}
     @MainActor
-    static func create(viewModel: DetailViewModel) -> UIViewController {
+    static func create(viewModel: DetailViewModelProtocol) -> UIViewController {
         let vc = DetailViewController.instantiate()
         vc.setViewModel(viewModel: viewModel)
         return vc
@@ -28,10 +28,10 @@ final class DetailViewController: UIViewController {
     @IBOutlet private weak var forksLabel: UILabel!
     @IBOutlet private weak var openIssuesLabel: UILabel!
 
-    var viewModel: DetailViewModel?
+    var viewModel: DetailViewModelProtocol?
     private var cancellables = Set<AnyCancellable>()
     
-    func setViewModel(viewModel: DetailViewModel) {
+    func setViewModel(viewModel: DetailViewModelProtocol) {
         self.viewModel = viewModel
         bindViewModel()
     }
@@ -53,7 +53,7 @@ final class DetailViewController: UIViewController {
 
     private func bindViewModel() {
         // リポジトリ情報の更新
-        viewModel?.$repository
+        viewModel?.repositoryPublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] model in
                 self?.updateUI(with: model)
@@ -61,7 +61,7 @@ final class DetailViewController: UIViewController {
             .store(in: &cancellables)
 
         // 画像の更新
-        viewModel?.$avatarImage
+        viewModel?.avatarImagePublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] image in
                 self?.imageView.image = image
@@ -69,7 +69,7 @@ final class DetailViewController: UIViewController {
             .store(in: &cancellables)
 
         // エラーメッセージの監視
-        viewModel?.$errorMessage
+        viewModel?.errorMessagePublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] errorMessage in
                 if let errorMessage = errorMessage {

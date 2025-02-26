@@ -12,7 +12,7 @@ import Combine
 final class SearchViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet private weak var searchBar: UISearchBar!
 
-    private var viewModel: SearchViewModel = SearchViewModel()
+    private var viewModel: SearchViewModelProtocol = SearchViewModel()
     private let router = AppRouter()
     private var cancellables = Set<AnyCancellable>()
 
@@ -27,14 +27,14 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
     // MARK: - Private function
 
     private func bindViewModel() {
-        viewModel.$repositories
+        viewModel.repositoriesPublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.tableView.reloadData()
             }
             .store(in: &cancellables)
 
-        viewModel.$errorMessage
+        viewModel.errorMessagePublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] message in
                 if let message = message {

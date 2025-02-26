@@ -10,15 +10,26 @@ import Foundation
 import Combine
 
 @MainActor
-final class SearchViewModel {
+protocol SearchViewModelProtocol {
+    init(repository: GithubRepositoryProtocol, translator: GithubRepositoryTranslatorProtocol)
+    var repositoriesPublisher: Published<[GithubRepositoryModel]>.Publisher { get }
+    var repositories: [GithubRepositoryModel] { get }
+    var errorMessagePublisher: Published<String?>.Publisher { get }
+    func searchRepositories(query: String) async
+}
+
+@MainActor
+final class SearchViewModel: SearchViewModelProtocol {
+    var repositoriesPublisher: Published<[GithubRepositoryModel]>.Publisher { $repositories }
+    var errorMessagePublisher: Published<String?>.Publisher { $errorMessage }
     @Published var repositories: [GithubRepositoryModel] = []
     @Published var errorMessage: String?
 
-    private let repository: GithubRepository
-    private let translator: GithubRepositoryTranslator
+    private let repository: GithubRepositoryProtocol
+    private let translator: GithubRepositoryTranslatorProtocol
     private var cancellables = Set<AnyCancellable>()
 
-    init(repository: GithubRepository = GithubRepository(), translator: GithubRepositoryTranslator = GithubRepositoryTranslator()) {
+    init(repository: GithubRepositoryProtocol = GithubRepository(), translator: GithubRepositoryTranslatorProtocol = GithubRepositoryTranslator()) {
         self.repository = repository
         self.translator = translator
     }
