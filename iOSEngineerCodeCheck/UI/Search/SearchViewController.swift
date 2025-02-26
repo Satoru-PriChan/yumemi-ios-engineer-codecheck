@@ -68,6 +68,17 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
                 }
             }
             .store(in: &cancellables)
+
+        viewModel?.isLoadingPublisher
+            .receive(on: RunLoop.main)
+            .sink { isLoading in
+                if isLoading {
+                    LoadingIndicator.show()
+                } else {
+                    LoadingIndicator.hide()
+                }
+            }
+            .store(in: &cancellables)
     }
 
     // MARK: - UITableViewDataSource
