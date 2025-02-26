@@ -43,8 +43,9 @@ XcodeProject > 右クリック > SwiftFormatPlugin をクリックで、ソー�
 ### [ソースコードの安全性の向上 #3](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/3)
 
 - [Feature/3 improve code safety](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/14)
+- [Feature/3 Introduce type-safety in GithubRepository](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/19/files)
 
-面倒だったため以下のプロンプトでQWEN(AI)に直してもらった後、エラーアラートの実装は自分で追加しました。ネットワークを切断するとエラーアラートが動作することを確認しました。
+面倒だったため以下のプロンプトでQWEN(AI)に直してもらった後、エラーアラートの実装、型安全は自分で追加しました。ネットワークを切断するとエラーアラートが動作することを確認しました。
 渡しているコードはゆめみ様の公開リポジトリのコードですから、AIに渡しても問題ないと判断しました。その後、SwiftFormatによりフォーマットを綺麗にしました。
 
 プロンプト: 
