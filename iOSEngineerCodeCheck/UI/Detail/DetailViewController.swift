@@ -51,7 +51,7 @@ final class DetailViewController: UIViewController {
     }
 
     // MARK: - Private functions
-    
+
     private func setUI() {
         titleLabel.accessibilityIdentifier = "TitleLabel"
         languageLabel.accessibilityIdentifier = "LanguageLabel"

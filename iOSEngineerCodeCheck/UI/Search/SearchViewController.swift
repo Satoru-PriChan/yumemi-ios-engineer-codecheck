@@ -39,7 +39,7 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
     }
 
     // MARK: - Private function
-    
+
     private func setUI() {
         searchBar.delegate = self
         searchBar.accessibilityIdentifier = "Search"

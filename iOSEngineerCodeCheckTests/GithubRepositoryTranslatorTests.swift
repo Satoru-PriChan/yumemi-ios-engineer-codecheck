@@ -11,7 +11,6 @@ import Testing
 import iOSEngineerCodeCheck
 
 struct GithubRepositoryTranslatorTests {
-    
     var translator: GithubRepositoryTranslatorProtocol
 
     init() async throws {
@@ -47,7 +46,7 @@ struct GithubRepositoryTranslatorTests {
                 forksCount: 0,
                 openIssuesCount: 0,
                 owner: GithubOwnerEntity(avatarURL: "")
-            )
+            ),
         ]
     )
     func singleTranslation(_ entity: GithubRepositoryEntity) async throws {
@@ -64,7 +63,7 @@ struct GithubRepositoryTranslatorTests {
         #expect(model.openIssuesCount == entity.openIssuesCount)
         #expect(model.avatarURL == entity.owner.avatarURL)
     }
-    
+
     @Test(
         "Multi GithubRepositoryEntity Translation",
         arguments: [
@@ -96,14 +95,14 @@ struct GithubRepositoryTranslatorTests {
                     forksCount: 0,
                     openIssuesCount: 0,
                     owner: GithubOwnerEntity(avatarURL: "")
-                )
-            ]
+                ),
+            ],
         ]
     )
     func multiTranslation(_ entities: [GithubRepositoryEntity]) async throws {
         let models = translator.translate(from: entities)
         #expect(models.count == entities.count)
-        for i in 0..<models.count {
+        for i in 0 ..< models.count {
             #expect(models[i].fullName == entities[i].fullName)
             if let language = entities[i].language {
                 #expect(models[i].language == language)

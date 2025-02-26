@@ -1,5 +1,5 @@
 //
-//  TestGithubRepository.swift
+//  TestErrorGithubRepository.swift
 //  iOSEngineerCodeCheckTests
 //
 //  Created by kento.yamazaki on 2025/02/26.
@@ -12,16 +12,17 @@ import UIKit
 import iOSEngineerCodeCheck
 
 // MARK: - TestErrorGithubRepository
+
 final class TestErrorGithubRepository: GithubRepositoryProtocol {
-    required init(session: URLSession) {
+    required init(session _: URLSession) {
         // セッションは使用しない
     }
-    
-    func searchRepositories(query: String) async throws -> [GithubRepositoryEntity] {
+
+    func searchRepositories(query _: String) async throws -> [GithubRepositoryEntity] {
         throw NSError(domain: "TestError", code: 1, userInfo: nil)
     }
-    
-    func fetchImage(from urlString: String) async throws -> UIImage {
+
+    func fetchImage(from _: String) async throws -> UIImage {
         throw NSError(domain: "TestError", code: 2, userInfo: nil)
     }
 }

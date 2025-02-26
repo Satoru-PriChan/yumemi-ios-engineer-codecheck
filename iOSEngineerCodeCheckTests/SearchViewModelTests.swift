@@ -7,10 +7,10 @@
 //
 
 import Combine
+import Foundation
 import Testing
 @testable
 import iOSEngineerCodeCheck
-import Foundation
 import UIKit
 
 struct SearchViewModelTests {
@@ -32,13 +32,13 @@ struct SearchViewModelTests {
                 }
             }
             .store(in: &cancellables)
-        
+
         // Act, Assert
         #expect(viewModel.repositories.isEmpty)
         #expect(viewModel.errorMessage == nil)
         await viewModel.searchRepositories(query: "foo")
     }
-    
+
     @MainActor
     @Test
     mutating func fetchRepositoriesFailure() async {
@@ -55,7 +55,7 @@ struct SearchViewModelTests {
                 }
             }
             .store(in: &cancellables)
-        
+
         // Act, Assert
         #expect(viewModel.repositories.isEmpty)
         #expect(viewModel.errorMessage == nil)

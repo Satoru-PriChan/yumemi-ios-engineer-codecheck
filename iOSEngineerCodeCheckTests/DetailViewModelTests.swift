@@ -7,10 +7,10 @@
 //
 
 import Combine
+import Foundation
 import Testing
 @testable
 import iOSEngineerCodeCheck
-import Foundation
 import UIKit
 
 struct DetailViewModelTests {
@@ -31,11 +31,11 @@ struct DetailViewModelTests {
                 }
             }
             .store(in: &cancellables)
-        
+
         // Act
         await viewModel.fetchAvatarImage()
     }
-    
+
     @MainActor
     @Test
     mutating func fetchAvatarImageFailure() async {
@@ -51,7 +51,7 @@ struct DetailViewModelTests {
                 }
             }
             .store(in: &cancellables)
-        
+
         // Act
         await viewModel.fetchAvatarImage()
     }

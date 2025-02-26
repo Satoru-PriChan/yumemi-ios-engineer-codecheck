@@ -12,12 +12,13 @@ import UIKit
 import iOSEngineerCodeCheck
 
 // MARK: - TestSuccessGithubRepository
+
 final class TestSuccessGithubRepository: GithubRepositoryProtocol {
-    required init(session: URLSession) {
+    required init(session _: URLSession) {
         // セッションは使用しない
     }
-    
-    func searchRepositories(query: String) async throws -> [GithubRepositoryEntity] {
+
+    func searchRepositories(query _: String) async throws -> [GithubRepositoryEntity] {
         return [
             GithubRepositoryEntity(
                 fullName: "Swift/Example",
@@ -45,11 +46,11 @@ final class TestSuccessGithubRepository: GithubRepositoryProtocol {
                 forksCount: 0,
                 openIssuesCount: 0,
                 owner: GithubOwnerEntity(avatarURL: "")
-            )
+            ),
         ]
     }
-    
-    func fetchImage(from urlString: String) async throws -> UIImage {
+
+    func fetchImage(from _: String) async throws -> UIImage {
         return UIImage()
     }
 }
