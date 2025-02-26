@@ -20,7 +20,7 @@ class iOSEngineerCodeCheckUITests: XCTestCase, Sendable {
     func testSearchAndDetailViewFlow() {
         XCTContext.runActivity(named: "SearchViewController 検索実行") { _ in
             app.launch()
-            let searchField = app.otherElements["Search"]
+            let searchField = app.otherElements["SearchViewController_SearchBar"]
             waitToAppear(for: searchField)
             XCTAssertTrue(searchField.exists, "Search bar should exist")
             searchField.tap()
@@ -35,12 +35,12 @@ class iOSEngineerCodeCheckUITests: XCTestCase, Sendable {
         }
 
         XCTContext.runActivity(named: "DetailViewController 詳細画面UI要素があるか") { _ in
-            let titleLabel = app.staticTexts["TitleLabel"]
-            let languageLabel = app.staticTexts["LanguageLabel"]
-            let starsLabel = app.staticTexts["StarsLabel"]
-            let watchersLabel = app.staticTexts["WatchersLabel"]
-            let forksLabel = app.staticTexts["ForksLabel"]
-            let openIssuesLabel = app.staticTexts["OpenIssuesLabel"]
+            let titleLabel = app.staticTexts["DetailViewController_TitleLabel"]
+            let languageLabel = app.staticTexts["DetailViewController_LanguageLabel"]
+            let starsLabel = app.staticTexts["DetailViewController_StarsLabel"]
+            let watchersLabel = app.staticTexts["DetailViewController_WatchersLabel"]
+            let forksLabel = app.staticTexts["DetailViewController_ForksLabel"]
+            let openIssuesLabel = app.staticTexts["DetailViewController_OpenIssuesLabel"]
             // 詳細画面が表示されるまで待機
             waitToAppear(for: titleLabel)
             XCTAssertTrue(titleLabel.exists, "Detail view title should be displayed")
@@ -58,9 +58,6 @@ class iOSEngineerCodeCheckUITests: XCTestCase, Sendable {
         }
 
         XCTContext.runActivity(named: "DetailViewController 検索結果が保持されていることを確認") { _ in
-
-            // MARK: - 4.
-
             // 検索画面が表示されるまで待機
             let firstCell = app.tables.cells.element(boundBy: 0)
             waitToAppear(for: firstCell)

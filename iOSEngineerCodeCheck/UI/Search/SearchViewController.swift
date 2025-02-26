@@ -42,7 +42,7 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
 
     private func setUI() {
         searchBar.delegate = self
-        searchBar.accessibilityIdentifier = "Search"
+        searchBar.accessibilityIdentifier = "SearchViewController_SearchBar"
         title = "Root View Controller"
     }
 

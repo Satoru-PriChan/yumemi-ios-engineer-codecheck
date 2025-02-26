@@ -53,12 +53,12 @@ final class DetailViewController: UIViewController {
     // MARK: - Private functions
 
     private func setUI() {
-        titleLabel.accessibilityIdentifier = "TitleLabel"
-        languageLabel.accessibilityIdentifier = "LanguageLabel"
-        starsLabel.accessibilityIdentifier = "StarsLabel"
-        watchersLabel.accessibilityIdentifier = "WatchersLabel"
-        forksLabel.accessibilityIdentifier = "ForksLabel"
-        openIssuesLabel.accessibilityIdentifier = "OpenIssuesLabel"
+        titleLabel.accessibilityIdentifier = "DetailViewController_TitleLabel"
+        languageLabel.accessibilityIdentifier = "DetailViewController_LanguageLabel"
+        starsLabel.accessibilityIdentifier = "DetailViewController_StarsLabel"
+        watchersLabel.accessibilityIdentifier = "DetailViewController_WatchersLabel"
+        forksLabel.accessibilityIdentifier = "DetailViewController_ForksLabel"
+        openIssuesLabel.accessibilityIdentifier = "DetailViewController_OpenIssuesLabel"
     }
 
     private func bindViewModel() {
