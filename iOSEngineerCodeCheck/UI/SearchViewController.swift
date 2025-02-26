@@ -23,7 +23,6 @@ final class SearchViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.text = "GitHubのリポジトリを検索できるよー"
         searchBar.delegate = self
     }
 
@@ -40,12 +39,6 @@ final class SearchViewController: UITableViewController {
 // MARK: - UISearchBarDelegate
 
 extension SearchViewController: UISearchBarDelegate {
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        // 初期のテキスト削除
-        searchBar.text = ""
-        return true
-    }
-
     func searchBar(_: UISearchBar, textDidChange _: String) {
         task?.cancel()
     }
