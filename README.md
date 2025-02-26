@@ -356,6 +356,11 @@ final class DetailViewController: UIViewController {
 - プレースホルダを使用し、SearchBarの挙動について最小驚きの原則を適用した
     - 通常、SearchBarの注意事項を提示するなら、検索文字列として設定するのでなくプレースホルダーとして設定するので、その方が驚きが少ない
 
+### [アーキテクチャを適用 #7](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/7)
+- [Feature/7 architecture](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/21)
+- アーキテクチャ MVVM + Routerの適用
+    - + クリーン・アーキテクチャで定義されたEntity＋Translatorを持つ。Entity(データ層で使う)とModel(UI層で使う)を分けないと、変更範囲が大きくなり脆弱になるため
+
 ## 参考情報
 
 提出された課題の評価ポイントについても詳しく書かれてありますので、ぜひご覧ください。
