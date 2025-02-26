@@ -43,6 +43,11 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         setUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        animateUI()
+    }
 
     // MARK: - Private functions
 
@@ -68,6 +73,7 @@ final class DetailViewController: UIViewController {
         watchersLabel.font = .preferredFont(forTextStyle: .subheadline)
         forksLabel.font = .preferredFont(forTextStyle: .subheadline)
         openIssuesLabel.font = .preferredFont(forTextStyle: .subheadline)
+        prepareAnimation()
     }
 
     private func bindViewModel() {
@@ -93,6 +99,30 @@ final class DetailViewController: UIViewController {
         }
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: imageURL)
+    }
+    
+    private func prepareAnimation() {
+        self.imageView.alpha = 0.1
+        self.titleLabel.alpha = 0.1
+        self.languageLabel.alpha = 0.1
+        self.starsLabel.alpha = 0.1
+        self.watchersLabel.alpha = 0.1
+        self.forksLabel.alpha = 0.1
+        self.openIssuesLabel.alpha = 0.1
+    }
+    
+    private func animateUI() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.imageView.alpha = 1
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
+            self.titleLabel.alpha = 1
+            self.languageLabel.alpha = 1
+            self.starsLabel.alpha = 1
+            self.watchersLabel.alpha = 1
+            self.forksLabel.alpha = 1
+            self.openIssuesLabel.alpha = 1
+        })
     }
 }
 
