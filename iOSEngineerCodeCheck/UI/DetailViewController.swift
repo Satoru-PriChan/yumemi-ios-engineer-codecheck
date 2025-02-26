@@ -34,18 +34,28 @@ final class DetailViewController: UIViewController {
     }
 
     // MARK: - Private functions
-
-    private func configureView() {
+    
+    /// Query function
+    private func fetchSelectedRepository() -> GithubRepositoryModel? {
         guard let selectedIndex = searchViewController?.selectedIndex,
               searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
-              let selectedRepository = searchViewController?.fetchedRepositories[selectedIndex] else { return }
+              let selectedRepository = searchViewController?.fetchedRepositories[selectedIndex] else { return nil }
+        return selectedRepository
+    }
+    
+    /// Command function
+    private func updateUI(with repository: GithubRepositoryModel) {
+        titleLabel.text = repository.fullName
+        languageLabel.text = "Written in \(repository.language ?? "Unknown Language")"
+        starsLabel.text = "\(repository.stargazersCount) stars"
+        watchersLabel.text = "\(repository.watchersCount) watchers"
+        forksLabel.text = "\(repository.forksCount) forks"
+        openIssuesLabel.text = "\(repository.openIssuesCount) open issues"
+    }
 
-        titleLabel.text = selectedRepository.fullName
-        languageLabel.text = "Written in \(selectedRepository.language ?? "Unknown Language")"
-        starsLabel.text = "\(selectedRepository.stargazersCount) stars"
-        watchersLabel.text = "\(selectedRepository.watchersCount) watchers"
-        forksLabel.text = "\(selectedRepository.forksCount) forks"
-        openIssuesLabel.text = "\(selectedRepository.openIssuesCount) open issues"
+    private func configureView() {
+        guard let repository = fetchSelectedRepository() else { return }
+        updateUI(with: repository)
     }
 
     private func fetchAndSetImage() async {
