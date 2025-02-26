@@ -13,17 +13,16 @@ import UIKit
 /// Modifier `final` is allowed before actor https://forums.swift.org/t/why-can-you-constrain-to-final-classes-and-actors/65256/3
 final actor GithubRepository {
     private let session: URLSession
-
     init(session: URLSession = .shared) {
         self.session = session
     }
 
-    func searchRepositories(query: String) async throws -> [GithubRepositoryModel] {
+    func searchRepositories(query: String) async throws -> [GithubRepositoryEntity] {
         guard let url = URL(string: "https://api.github.com/search/repositories?q=\(query)") else {
             throw APIError.invalidURL
         }
         let (data, _) = try await session.data(from: url)
-        let response = try JSONDecoder().decode(GithubRepositoryResponseModel.self, from: data)
+        let response = try JSONDecoder().decode(GithubRepositoryResponseEntity.self, from: data)
         return response.items
     }
 
