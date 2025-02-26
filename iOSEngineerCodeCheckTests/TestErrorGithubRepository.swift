@@ -21,8 +21,4 @@ final class TestErrorGithubRepository: GithubRepositoryProtocol {
     func searchRepositories(query _: String) async throws -> [GithubRepositoryEntity] {
         throw NSError(domain: "TestError", code: 1, userInfo: nil)
     }
-
-    func fetchImage(from _: String) async throws -> UIImage {
-        throw NSError(domain: "TestError", code: 2, userInfo: nil)
-    }
 }

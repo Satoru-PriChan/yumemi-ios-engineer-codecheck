@@ -643,3 +643,6 @@ extension UIViewController {
 
 ChatGPTなどAIサービスの利用は禁止しておりません。  
 利用にあたって工夫したプロンプトやソースコメント等をご提出頂くと加点評価する場合がございます。 (減点評価はありません)
+
+## Attributes
+[Icon by Amazona Adorada](https://www.freepik.com/icons/broken)

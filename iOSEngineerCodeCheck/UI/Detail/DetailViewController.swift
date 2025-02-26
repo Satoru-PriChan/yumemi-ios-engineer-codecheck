@@ -8,6 +8,7 @@
 
 import Combine
 import UIKit
+import Kingfisher
 
 struct DetailViewControllerFactory {
     private init() {}
@@ -43,13 +44,6 @@ final class DetailViewController: UIViewController {
         setUI()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        Task {
-            await viewModel?.fetchAvatarImage()
-        }
-    }
-
     // MARK: - Private functions
 
     private func setUI() {
@@ -69,24 +63,6 @@ final class DetailViewController: UIViewController {
                 self?.updateUI(with: model)
             }
             .store(in: &cancellables)
-
-        // 画像の更新
-        viewModel?.avatarImagePublisher
-            .receive(on: RunLoop.main)
-            .sink { [weak self] image in
-                self?.imageView.image = image
-            }
-            .store(in: &cancellables)
-
-        // エラーメッセージの監視
-        viewModel?.errorMessagePublisher
-            .receive(on: RunLoop.main)
-            .sink { [weak self] errorMessage in
-                if let errorMessage = errorMessage {
-                    self?.showErrorAlert(message: errorMessage)
-                }
-            }
-            .store(in: &cancellables)
     }
 
     private func updateUI(with repository: GithubRepositoryModel) {
@@ -96,6 +72,12 @@ final class DetailViewController: UIViewController {
         watchersLabel.text = "\(repository.watchersCount) watchers"
         forksLabel.text = "\(repository.forksCount) forks"
         openIssuesLabel.text = "\(repository.openIssuesCount) open issues"
+        guard let imageURL = URL(string: repository.avatarURL) else {
+            imageView.image = UIImage(named: "image-break")
+            return
+        }
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: imageURL)
     }
 }
 
