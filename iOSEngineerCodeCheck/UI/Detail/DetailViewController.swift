@@ -40,6 +40,7 @@ final class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +51,15 @@ final class DetailViewController: UIViewController {
     }
 
     // MARK: - Private functions
+
+    private func setUI() {
+        titleLabel.accessibilityIdentifier = "DetailViewController_TitleLabel"
+        languageLabel.accessibilityIdentifier = "DetailViewController_LanguageLabel"
+        starsLabel.accessibilityIdentifier = "DetailViewController_StarsLabel"
+        watchersLabel.accessibilityIdentifier = "DetailViewController_WatchersLabel"
+        forksLabel.accessibilityIdentifier = "DetailViewController_ForksLabel"
+        openIssuesLabel.accessibilityIdentifier = "DetailViewController_OpenIssuesLabel"
+    }
 
     private func bindViewModel() {
         // リポジトリ情報の更新
