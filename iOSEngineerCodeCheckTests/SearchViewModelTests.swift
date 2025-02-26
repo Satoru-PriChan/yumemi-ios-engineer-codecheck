@@ -18,47 +18,57 @@ struct SearchViewModelTests {
 
     @MainActor
     @Test
-    mutating func fetchRepositoriesSuccess() async {
+    mutating func fetchRepositoriesSuccess() async throws {
         // Arrange
         let mockRepository = TestSuccessGithubRepository(session: URLSession.shared)
         let viewModel = SearchViewModel(repository: mockRepository, translator: GithubRepositoryTranslator())
-        viewModel.repositoriesPublisher
-            .sink { [weak viewModel] repositories in
-                if repositories.isEmpty == false {
-                    // Assert
-                    #expect(true)
-                    #expect((viewModel?.repositories.isEmpty ?? false) == false)
-                    #expect(viewModel?.errorMessage == nil)
+        try await confirmation { repositriesFethced in
+            viewModel.repositoriesPublisher
+                .sink { repositories in
+                    if repositories.isEmpty == false {
+                        // Assert
+                        repositriesFethced()
+                    }
                 }
-            }
-            .store(in: &cancellables)
+                .store(in: &cancellables)
 
-        // Act, Assert
-        #expect(viewModel.repositories.isEmpty)
+            // Act, Assert
+            #expect(viewModel.repositories.isEmpty)
+            #expect(viewModel.errorMessage == nil)
+            await viewModel.searchRepositories(query: "foo")
+            // Wait
+            try await Task.sleep(for: .seconds(0.01))
+        }
+        // Assert
+        #expect(viewModel.repositories.isEmpty == false)
         #expect(viewModel.errorMessage == nil)
-        await viewModel.searchRepositories(query: "foo")
     }
 
     @MainActor
     @Test
-    mutating func fetchRepositoriesFailure() async {
+    mutating func fetchRepositoriesFailure() async throws {
         // Arrange
         let mockRepository = TestErrorGithubRepository(session: URLSession.shared)
         let viewModel = SearchViewModel(repository: mockRepository, translator: GithubRepositoryTranslator())
-        viewModel.errorMessagePublisher
-            .sink { [weak viewModel] errorMessage in
-                if errorMessage != nil {
-                    // Assert
-                    #expect(true)
-                    #expect(viewModel?.repositories.isEmpty ?? false)
-                    #expect(viewModel?.errorMessage != nil)
+        try await confirmation { errorFetched in
+            viewModel.errorMessagePublisher
+                .sink { errorMessage in
+                    if errorMessage != nil {
+                        // Assert
+                        errorFetched()
+                    }
                 }
-            }
-            .store(in: &cancellables)
+                .store(in: &cancellables)
 
-        // Act, Assert
+            // Act, Assert
+            #expect(viewModel.repositories.isEmpty)
+            #expect(viewModel.errorMessage == nil)
+            await viewModel.searchRepositories(query: "foo")
+            // Wait
+            try await Task.sleep(for: .seconds(0.01))
+        }
+        // Assert
         #expect(viewModel.repositories.isEmpty)
-        #expect(viewModel.errorMessage == nil)
-        await viewModel.searchRepositories(query: "foo")
+        #expect(viewModel.errorMessage != nil)
     }
 }
