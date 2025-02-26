@@ -10,10 +10,22 @@ import UIKit
 
 protocol AppRouterProtocol {
     @MainActor
+    func getRoot(repository: GithubRepositoryProtocol) -> UIViewController
+    @MainActor
     func showDetail(from viewController: UIViewController, repository: GithubRepositoryModel)
 }
 
 final class AppRouter: AppRouterProtocol {
+    @MainActor
+    func getRoot(repository: GithubRepositoryProtocol = GithubRepository()) -> UIViewController {
+        let searchViewController = SearchViewControllerFactory.create(
+            viewModel: SearchViewModel(
+                repository: repository
+            )
+        )
+        return UINavigationController(rootViewController: searchViewController)
+    }
+
     @MainActor
     func showDetail(from viewController: UIViewController, repository: GithubRepositoryModel) {
         let detailViewController = DetailViewControllerFactory.create(viewModel: DetailViewModel(repository: repository))

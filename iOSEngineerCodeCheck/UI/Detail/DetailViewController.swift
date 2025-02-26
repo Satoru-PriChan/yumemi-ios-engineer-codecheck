@@ -89,4 +89,6 @@ final class DetailViewController: UIViewController {
     }
 }
 
+// MARK: - StoryboardInstantiatable
+
 extension DetailViewController: StoryboardInstantiatable {}
