@@ -35,11 +35,16 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
-        title = "Root View Controller"
+        setUI()
     }
 
     // MARK: - Private function
+    
+    private func setUI() {
+        searchBar.delegate = self
+        searchBar.accessibilityIdentifier = "Search"
+        title = "Root View Controller"
+    }
 
     private func bindViewModel() {
         viewModel?.repositoriesPublisher
