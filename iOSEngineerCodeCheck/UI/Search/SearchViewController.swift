@@ -50,6 +50,8 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
         searchBar.delegate = self
         searchBar.accessibilityIdentifier = "SearchViewController_SearchBar"
         title = "Github Repositories"
+        // Remove back button text 
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
     private func bindViewModel() {
