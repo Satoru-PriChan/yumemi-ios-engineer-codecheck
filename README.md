@@ -622,6 +622,13 @@ extension UIViewController {
 ありがとうございます！ほぼ良いのですが、DetailViewControllerでエラーハンドリングを最初のように入れてくれませんか？
 ```
 
+### [テストを追加 #10](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/10)
+- [Feature/7 architecture](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/21)
+- トランスレータ、ビューモデルのユニットテストを追加
+- UIテストの追加
+    - SearchViewControllerからDetailViewControllerへ、そしてSearchViewControllerへ戻る回帰テスト
+- テストカバレッジは87%
+
 ## 参考情報
 
 提出された課題の評価ポイントについても詳しく書かれてありますので、ぜひご覧ください。
