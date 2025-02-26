@@ -58,6 +58,16 @@ final class DetailViewController: UIViewController {
         updateUI(with: repository)
     }
 
+    // MARK: - Private functions - Images
+    
+    private func fetchImage(from urlString: String) async throws -> UIImage {
+        return try await githubRepository.fetchImage(from: urlString)
+    }
+    
+    private func setImage(to imageView: UIImageView, image: UIImage?) {
+        imageView.image = image
+    }
+    
     private func fetchAndSetImage() async {
         guard let selectedIndex = searchViewController?.selectedIndex,
               searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
@@ -70,10 +80,9 @@ final class DetailViewController: UIViewController {
         }
 
         do {
-            let imgURLString = owner.avatarURL
-            let image = try await githubRepository.fetchImage(from: imgURLString)
+            let image = try await fetchImage(from: owner.avatarURL)
             await MainActor.run {
-                self.imageView.image = image
+                self.setImage(to: self.imageView, image: image)
             }
         } catch {
             await MainActor.run {
