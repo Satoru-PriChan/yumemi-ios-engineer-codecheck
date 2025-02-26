@@ -47,12 +47,27 @@ final class DetailViewController: UIViewController {
     // MARK: - Private functions
 
     private func setUI() {
+        view.backgroundColor = R.color.backgroundColor()
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
         titleLabel.accessibilityIdentifier = "DetailViewController_TitleLabel"
         languageLabel.accessibilityIdentifier = "DetailViewController_LanguageLabel"
         starsLabel.accessibilityIdentifier = "DetailViewController_StarsLabel"
         watchersLabel.accessibilityIdentifier = "DetailViewController_WatchersLabel"
         forksLabel.accessibilityIdentifier = "DetailViewController_ForksLabel"
         openIssuesLabel.accessibilityIdentifier = "DetailViewController_OpenIssuesLabel"
+        titleLabel.textColor = R.color.textColor()
+        languageLabel.textColor = R.color.textColor()
+        starsLabel.textColor = R.color.textColor()
+        watchersLabel.textColor = R.color.textColor()
+        forksLabel.textColor = R.color.textColor()
+        openIssuesLabel.textColor = R.color.textColor()
+        titleLabel.font = .preferredFont(forTextStyle: .largeTitle)
+        languageLabel.font = .preferredFont(forTextStyle: .body)
+        starsLabel.font = .preferredFont(forTextStyle: .subheadline)
+        watchersLabel.font = .preferredFont(forTextStyle: .subheadline)
+        forksLabel.font = .preferredFont(forTextStyle: .subheadline)
+        openIssuesLabel.font = .preferredFont(forTextStyle: .subheadline)
     }
 
     private func bindViewModel() {

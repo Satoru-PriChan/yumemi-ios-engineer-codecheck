@@ -47,11 +47,32 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
     // MARK: - Private function
 
     private func setUI() {
+        setSearchBarUI()
+        title = "Github Repositories"
+        // Remove back button text
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        setUINavigationBarAppearance()
+        view.backgroundColor = R.color.backgroundColor()
+    }
+    
+    private func setUINavigationBarAppearance() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = R.color.backgroundColor()
+        appearance.titleTextAttributes = [.foregroundColor: R.color.textColor() ?? UIColor.black ]
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.compactAppearance = appearance
+    }
+    
+    private func setSearchBarUI() {
         searchBar.delegate = self
         searchBar.accessibilityIdentifier = "SearchViewController_SearchBar"
-        title = "Github Repositories"
-        // Remove back button text 
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        searchBar.backgroundColor = R.color.backgroundColor()
+        searchBar.searchTextField.backgroundColor = R.color.accentColor()
+        searchBar.layer.cornerRadius = 10
+        searchBar.layer.masksToBounds = true
+        searchBar.placeholder = "Search Github Repositories..."
     }
 
     private func bindViewModel() {
@@ -95,6 +116,12 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
             return cell
         }
         cell.textLabel?.text = repository.fullName
+        cell.detailTextLabel?.text = "\(repository.stargazersCount) Star"
+        cell.textLabel?.textColor = R.color.textColor()
+        cell.backgroundColor = .clear
+        cell.detailTextLabel?.textColor = R.color.textColor()
+        cell.textLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        cell.detailTextLabel?.font = .systemFont(ofSize: 14, weight: .thin)
         return cell
     }
 
