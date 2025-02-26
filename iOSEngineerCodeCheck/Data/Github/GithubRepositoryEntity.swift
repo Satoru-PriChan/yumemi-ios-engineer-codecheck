@@ -1,5 +1,5 @@
 //
-//  GithubRepositoryModel.swift
+//  GithubRepositoryEntity.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by kento.yamazaki on 2025/02/26.
@@ -8,18 +8,18 @@
 
 import Foundation
 
-struct GithubRepositoryResponseModel: Codable, Sendable {
-    let items: [GithubRepositoryModel]
+struct GithubRepositoryResponseEntity: Codable, Sendable {
+    let items: [GithubRepositoryEntity]
 }
 
-struct GithubRepositoryModel: Codable, Sendable {
+struct GithubRepositoryEntity: Codable, Sendable {
     let fullName: String
     let language: String?
     let stargazersCount: Int
     let watchersCount: Int
     let forksCount: Int
     let openIssuesCount: Int
-    let owner: GithubOwnerModel
+    let owner: GithubOwnerEntity
 
     enum CodingKeys: String, CodingKey {
         case fullName = "full_name"
@@ -32,16 +32,10 @@ struct GithubRepositoryModel: Codable, Sendable {
     }
 }
 
-struct GithubOwnerModel: Codable, Sendable {
+struct GithubOwnerEntity: Codable, Sendable {
     let avatarURL: String
 
     enum CodingKeys: String, CodingKey {
         case avatarURL = "avatar_url"
     }
-}
-
-enum APIError: Error {
-    case invalidURL
-    case invalidResponse
-    case invalidImageData
 }

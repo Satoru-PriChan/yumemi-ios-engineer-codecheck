@@ -10,9 +10,15 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    var appRouter: AppRouterProtocol = AppRouter()
 
     func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        let window = UIWindow(windowScene: windowScene)
+        let root = appRouter.getRoot(repository: GithubRepository())
+        window.rootViewController = root
+        self.window = window
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_: UIScene) {}

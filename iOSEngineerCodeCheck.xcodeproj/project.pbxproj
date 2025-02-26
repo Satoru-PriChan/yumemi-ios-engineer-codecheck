@@ -44,6 +44,8 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		37560D032D6D9D08000FB0F6 /* Extensions */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Extensions; sourceTree = "<group>"; };
+		37A978D72D6EC72100BC5E83 /* Domain */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Domain; sourceTree = "<group>"; };
+		37A978E52D6EC95D00BC5E83 /* Router */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Router; sourceTree = "<group>"; };
 		37BCD48A2D6DFE620036459B /* App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = App; sourceTree = "<group>"; };
 		37BCD48B2D6DFE6C0036459B /* UI */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = UI; sourceTree = "<group>"; };
 		37BCD48C2D6DFE770036459B /* Data */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Data; sourceTree = "<group>"; };
@@ -98,6 +100,8 @@
 		BFD945DD244DC5E80012785A /* iOSEngineerCodeCheck */ = {
 			isa = PBXGroup;
 			children = (
+				37A978E52D6EC95D00BC5E83 /* Router */,
+				37A978D72D6EC72100BC5E83 /* Domain */,
 				37BCD48C2D6DFE770036459B /* Data */,
 				37BCD48B2D6DFE6C0036459B /* UI */,
 				37BCD48A2D6DFE620036459B /* App */,
@@ -143,6 +147,8 @@
 			);
 			fileSystemSynchronizedGroups = (
 				37560D032D6D9D08000FB0F6 /* Extensions */,
+				37A978D72D6EC72100BC5E83 /* Domain */,
+				37A978E52D6EC95D00BC5E83 /* Router */,
 				37BCD48A2D6DFE620036459B /* App */,
 				37BCD48B2D6DFE6C0036459B /* UI */,
 				37BCD48C2D6DFE770036459B /* Data */,
