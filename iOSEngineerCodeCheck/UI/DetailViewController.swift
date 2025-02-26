@@ -40,19 +40,18 @@ final class DetailViewController: UIViewController {
               searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
               let selectedRepository = searchViewController?.fetchedRepositories[selectedIndex] else { return }
 
-        titleLabel.text = selectedRepository["full_name"] as? String ?? "Unknown Repository"
-        languageLabel.text = "Written in \(selectedRepository["language"] as? String ?? "Unknown Language")"
-        starsLabel.text = "\(selectedRepository["stargazers_count"] as? Int ?? 0) stars"
-        watchersLabel.text = "\(selectedRepository["watchers_count"] as? Int ?? 0) watchers"
-        forksLabel.text = "\(selectedRepository["forks_count"] as? Int ?? 0) forks"
-        openIssuesLabel.text = "\(selectedRepository["open_issues_count"] as? Int ?? 0) open issues"
+        titleLabel.text = selectedRepository.fullName
+        languageLabel.text = "Written in \(selectedRepository.language ?? "Unknown Language")"
+        starsLabel.text = "\(selectedRepository.stargazersCount) stars"
+        watchersLabel.text = "\(selectedRepository.watchersCount) watchers"
+        forksLabel.text = "\(selectedRepository.forksCount) forks"
+        openIssuesLabel.text = "\(selectedRepository.openIssuesCount) open issues"
     }
 
     private func fetchAndSetImage() async {
         guard let selectedIndex = searchViewController?.selectedIndex,
               searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
-              let owner = searchViewController?.fetchedRepositories[selectedIndex]["owner"] as? [String: Any],
-              let imgURLString = owner["avatar_url"] as? String
+              let owner = searchViewController?.fetchedRepositories[selectedIndex].owner
         else {
             await MainActor.run {
                 self.showErrorAlert()
@@ -61,6 +60,7 @@ final class DetailViewController: UIViewController {
         }
 
         do {
+            let imgURLString = owner.avatarURL
             let image = try await githubRepository.fetchImage(from: imgURLString)
             await MainActor.run {
                 self.imageView.image = image

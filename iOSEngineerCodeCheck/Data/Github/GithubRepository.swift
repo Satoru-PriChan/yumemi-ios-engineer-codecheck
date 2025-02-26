@@ -18,32 +18,23 @@ final actor GithubRepository {
         self.session = session
     }
 
-    func searchRepositories(query: String) async throws -> [[String: any Sendable]] {
+    func searchRepositories(query: String) async throws -> [GithubRepositoryModel] {
         guard let url = URL(string: "https://api.github.com/search/repositories?q=\(query)") else {
-            throw NSError(domain: "Invalid URL", code: 400, userInfo: nil)
+            throw APIError.invalidURL
         }
-
         let (data, _) = try await session.data(from: url)
-
-        guard let obj = try JSONSerialization.jsonObject(with: data) as? [String: any Sendable],
-              let items = obj["items"] as? [[String: any Sendable]]
-        else {
-            throw NSError(domain: "Invalid Response", code: 500, userInfo: nil)
-        }
-
-        return items
+        let response = try JSONDecoder().decode(GithubRepositoryResponseModel.self, from: data)
+        return response.items
     }
 
     func fetchImage(from urlString: String) async throws -> UIImage {
         guard let url = URL(string: urlString) else {
-            throw NSError(domain: "Invalid Image URL", code: 400, userInfo: nil)
+            throw APIError.invalidURL
         }
-
         let (data, _) = try await session.data(from: url)
         guard let image = UIImage(data: data) else {
-            throw NSError(domain: "Invalid Image Data", code: 404, userInfo: nil)
+            throw APIError.invalidImageData
         }
-
         return image
     }
 }

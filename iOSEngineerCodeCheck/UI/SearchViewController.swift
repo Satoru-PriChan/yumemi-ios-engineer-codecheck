@@ -14,7 +14,7 @@ final class SearchViewController: UITableViewController {
     @IBOutlet private var searchBar: UISearchBar!
     private var searchWord: String?
     private var task: Task<Void, Never>?
-    var fetchedRepositories: [[String: any Sendable]] = []
+    var fetchedRepositories: [GithubRepositoryModel] = []
     var selectedIndex: Int?
 
     private let githubRepository = GithubRepository()
@@ -80,8 +80,8 @@ extension SearchViewController {
     override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         let repository = fetchedRepositories[indexPath.row]
-        cell.textLabel?.text = repository["full_name"] as? String ?? "Unknown Repository"
-        cell.detailTextLabel?.text = repository["language"] as? String ?? "Unknown Language"
+        cell.textLabel?.text = repository.fullName.isEmpty ? "Unknown Repository" : repository.fullName
+        cell.detailTextLabel?.text = repository.language ?? "Unknown Language"
         cell.tag = indexPath.row
         return cell
     }
