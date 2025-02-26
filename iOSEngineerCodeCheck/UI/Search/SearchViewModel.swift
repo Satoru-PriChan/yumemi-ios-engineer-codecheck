@@ -6,8 +6,8 @@
 //  Copyright © 2025 YUMEMI Inc. All rights reserved.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 @MainActor
 protocol SearchViewModelProtocol {
@@ -36,7 +36,7 @@ final class SearchViewModel: SearchViewModelProtocol {
 
     func searchRepositories(query: String) async {
         do {
-            let entities = try await self.repository.searchRepositories(query: query)
+            let entities = try await repository.searchRepositories(query: query)
             DispatchQueue.main.async {
                 self.repositories = self.translator.translate(from: entities)
             }

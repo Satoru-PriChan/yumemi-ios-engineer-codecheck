@@ -6,8 +6,8 @@
 //  Copyright © 2020 YUMEMI Inc. All rights reserved.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 struct DetailViewControllerFactory {
     private init() {}
@@ -20,35 +20,35 @@ struct DetailViewControllerFactory {
 }
 
 final class DetailViewController: UIViewController {
-    @IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var languageLabel: UILabel!
-    @IBOutlet private weak var starsLabel: UILabel!
-    @IBOutlet private weak var watchersLabel: UILabel!
-    @IBOutlet private weak var forksLabel: UILabel!
-    @IBOutlet private weak var openIssuesLabel: UILabel!
+    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var languageLabel: UILabel!
+    @IBOutlet private var starsLabel: UILabel!
+    @IBOutlet private var watchersLabel: UILabel!
+    @IBOutlet private var forksLabel: UILabel!
+    @IBOutlet private var openIssuesLabel: UILabel!
 
     var viewModel: DetailViewModelProtocol?
     private var cancellables = Set<AnyCancellable>()
-    
+
     func setViewModel(viewModel: DetailViewModelProtocol) {
         self.viewModel = viewModel
         bindViewModel()
     }
 
     // MARK: - LifeCycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Task {
             await viewModel?.fetchAvatarImage()
         }
     }
-    
+
     // MARK: - Private functions
 
     private func bindViewModel() {

@@ -18,15 +18,15 @@ public extension StoryboardInstantiatable where Self: UIViewController {
     static var storyboardName: String {
         return String(describing: self)
     }
-    
+
     static var viewControllerIdentifier: String? {
         return nil
     }
-    
+
     static var bundle: Bundle? {
         return nil
     }
-    
+
     @MainActor
     static func instantiate() -> Self {
         let loadViewController = { () -> UIViewController? in
@@ -37,7 +37,7 @@ public extension StoryboardInstantiatable where Self: UIViewController {
                 return storyboard.instantiateInitialViewController()
             }
         }
-        
+
         guard let viewController = loadViewController() as? Self else {
             fatalError("Cannot instantiate \(self)")
         }

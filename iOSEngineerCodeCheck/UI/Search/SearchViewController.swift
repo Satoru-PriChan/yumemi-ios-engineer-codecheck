@@ -6,8 +6,8 @@
 //  Copyright © 2020 YUMEMI Inc. All rights reserved.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 struct SearchViewControllerFactory {
     private init() {}
@@ -20,7 +20,7 @@ struct SearchViewControllerFactory {
 }
 
 final class SearchViewController: UITableViewController, UISearchBarDelegate {
-    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet private var searchBar: UISearchBar!
 
     private var viewModel: SearchViewModelProtocol?
     private let router = AppRouter()
@@ -32,13 +32,13 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
         self.viewModel = viewModel
         bindViewModel()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
         title = "Root View Controller"
     }
-    
+
     // MARK: - Private function
 
     private func bindViewModel() {
@@ -60,6 +60,7 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
     }
 
     // MARK: - UITableViewDataSource
+
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return viewModel?.repositories.count ?? 0
     }
@@ -82,6 +83,7 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
     }
 
     // MARK: - UISearchBarDelegate
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text, !text.isEmpty else { return }
         Task {

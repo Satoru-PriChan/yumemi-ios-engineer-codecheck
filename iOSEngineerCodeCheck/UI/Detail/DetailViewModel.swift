@@ -24,13 +24,15 @@ final class DetailViewModel: DetailViewModelProtocol {
     var repositoryPublisher: Published<GithubRepositoryModel>.Publisher {
         $repository
     }
+
     var avatarImagePublisher: Published<UIImage?>.Publisher {
         $avatarImage
     }
+
     var errorMessagePublisher: Published<String?>.Publisher {
         $errorMessage
     }
-    
+
     @Published var repository: GithubRepositoryModel
     @Published var avatarImage: UIImage?
     @Published var errorMessage: String?
@@ -48,7 +50,7 @@ final class DetailViewModel: DetailViewModelProtocol {
 
     func fetchAvatarImage() async {
         do {
-            let image = try await self.githubRepository.fetchImage(from: self.repository.avatarURL)
+            let image = try await githubRepository.fetchImage(from: repository.avatarURL)
             DispatchQueue.main.async {
                 self.avatarImage = image
             }
