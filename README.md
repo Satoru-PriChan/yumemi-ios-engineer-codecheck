@@ -360,6 +360,267 @@ final class DetailViewController: UIViewController {
 - [Feature/7 architecture](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/21)
 - アーキテクチャ MVVM + Routerの適用
     - + クリーン・アーキテクチャで定義されたEntity＋Translatorを持つ。Entity(データ層で使う)とModel(UI層で使う)を分けないと、変更範囲が大きくなり脆弱になるため
+- プロトコルを導入
+- QWENに以下のプロンプトを入力し手伝ってもらった
+
+```
+以下のSwiftファイルからなるプロジェクトのアーキテクチャをMVVM+Routerに変えたいです。さらに、APIから取得してきたデータはEntity構造体として取得するが、UI層で使う前にModel構造体に変換して使うようにしたいです。変換するのはTranslatorと名のつくクラスなどにしたいです。以下はSwiftファイルです: //
+//  GithubRepository.swift
+//  iOSEngineerCodeCheck
+//
+//  Created by kento.yamazaki on 2025/02/25.
+//  Copyright © 2025 YUMEMI Inc. All rights reserved.
+//
+import Foundation
+import UIKit
+/// Github repository API caller
+/// Modifier `final` is allowed before actor https://forums.swift.org/t/why-can-you-constrain-to-final-classes-and-actors/65256/3
+final actor GithubRepository {
+    private let session: URLSession
+    init(session: URLSession = .shared) {
+        self.session = session
+    }
+    func searchRepositories(query: String) async throws -> [GithubRepositoryModel] {
+        guard let url = URL(string: "https://api.github.com/search/repositories?q=\(query)") else {
+            throw APIError.invalidURL
+        }
+        let (data, _) = try await session.data(from: url)
+        let response = try JSONDecoder().decode(GithubRepositoryResponseModel.self, from: data)
+        return response.items
+    }
+    func fetchImage(from urlString: String) async throws -> UIImage {
+        guard let url = URL(string: urlString) else {
+            throw APIError.invalidURL
+        }
+        let (data, _) = try await session.data(from: url)
+        guard let image = UIImage(data: data) else {
+            throw APIError.invalidImageData
+        }
+        return image
+    }
+}
+//
+//  GithubRepositoryModel.swift
+//  iOSEngineerCodeCheck
+//
+//  Created by kento.yamazaki on 2025/02/26.
+//  Copyright © 2025 YUMEMI Inc. All rights reserved.
+//
+import Foundation
+struct GithubRepositoryResponseModel: Codable, Sendable {
+    let items: [GithubRepositoryModel]
+}
+struct GithubRepositoryModel: Codable, Sendable {
+    let fullName: String
+    let language: String?
+    let stargazersCount: Int
+    let watchersCount: Int
+    let forksCount: Int
+    let openIssuesCount: Int
+    let owner: GithubOwnerModel
+    enum CodingKeys: String, CodingKey {
+        case fullName = "full_name"
+        case language
+        case stargazersCount = "stargazers_count"
+        case watchersCount = "watchers_count"
+        case forksCount = "forks_count"
+        case openIssuesCount = "open_issues_count"
+        case owner
+    }
+}
+struct GithubOwnerModel: Codable, Sendable {
+    let avatarURL: String
+    enum CodingKeys: String, CodingKey {
+        case avatarURL = "avatar_url"
+    }
+}
+enum APIError: Error {
+    case invalidURL
+    case invalidResponse
+    case invalidImageData
+}
+//
+//  DetailViewController.swift
+//  iOSEngineerCodeCheck
+//
+//  Created by 史 翔新 on 2020/04/21.
+//  Copyright © 2020 YUMEMI Inc. All rights reserved.
+//
+import UIKit
+final class DetailViewController: UIViewController {
+    // MARK: - Properties
+    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var languageLabel: UILabel!
+    @IBOutlet private var starsLabel: UILabel!
+    @IBOutlet private var watchersLabel: UILabel!
+    @IBOutlet private var forksLabel: UILabel!
+    @IBOutlet private var openIssuesLabel: UILabel!
+    weak var searchViewController: SearchViewController?
+    private let githubRepository = GithubRepository()
+    // MARK: - LifeCycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureView()
+        Task {
+            await fetchAndSetImage()
+        }
+    }
+    // MARK: - Private functions
+    /// Query function
+    private func fetchSelectedRepository() -> GithubRepositoryModel? {
+        guard let selectedIndex = searchViewController?.selectedIndex,
+              searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
+              let selectedRepository = searchViewController?.fetchedRepositories[selectedIndex] else { return nil }
+        return selectedRepository
+    }
+    /// Command function
+    private func updateUI(with repository: GithubRepositoryModel) {
+        titleLabel.text = repository.fullName
+        languageLabel.text = "Written in \(repository.language ?? "Unknown Language")"
+        starsLabel.text = "\(repository.stargazersCount) stars"
+        watchersLabel.text = "\(repository.watchersCount) watchers"
+        forksLabel.text = "\(repository.forksCount) forks"
+        openIssuesLabel.text = "\(repository.openIssuesCount) open issues"
+    }
+    private func configureView() {
+        guard let repository = fetchSelectedRepository() else { return }
+        updateUI(with: repository)
+    }
+    // MARK: - Private functions - Images
+    private func fetchImage(from urlString: String) async throws -> UIImage {
+        return try await githubRepository.fetchImage(from: urlString)
+    }
+    private func setImage(to imageView: UIImageView, image: UIImage?) {
+        imageView.image = image
+    }
+    private func fetchAndSetImage() async {
+        guard let selectedIndex = searchViewController?.selectedIndex,
+              searchViewController?.fetchedRepositories.indices.contains(selectedIndex) ?? false,
+              let owner = searchViewController?.fetchedRepositories[selectedIndex].owner
+        else {
+            await MainActor.run {
+                self.showErrorAlert()
+            }
+            return
+        }
+        do {
+            let image = try await fetchImage(from: owner.avatarURL)
+            await MainActor.run {
+                self.setImage(to: self.imageView, image: image)
+            }
+        } catch {
+            await MainActor.run {
+                self.showErrorAlert()
+            }
+        }
+    }
+}
+//
+//  SearchViewController.swift
+//  iOSEngineerCodeCheck
+//
+//  Created by 史 翔新 on 2020/04/20.
+//  Copyright © 2020 YUMEMI Inc. All rights reserved.
+//
+import UIKit
+final class SearchViewController: UITableViewController {
+    // MARK: - Properties
+    @IBOutlet private var searchBar: UISearchBar!
+    private var searchWord: String?
+    private var task: Task<Void, Never>?
+    var fetchedRepositories: [GithubRepositoryModel] = []
+    var selectedIndex: Int?
+    private let githubRepository = GithubRepository()
+    // MARK: - LifeCycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchBar.delegate = self
+    }
+    // MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
+        if segue.identifier == "Detail" {
+            guard let detailViewController = segue.destination as? DetailViewController else { return }
+            detailViewController.searchViewController = self
+        }
+    }
+}
+// MARK: - UISearchBarDelegate
+extension SearchViewController: UISearchBarDelegate {
+    func searchBar(_: UISearchBar, textDidChange _: String) {
+        task?.cancel()
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text, !text.isEmpty else { return }
+        searchWord = text
+        task = Task {
+            do {
+                let repositories = try await githubRepository.searchRepositories(query: text)
+                await MainActor.run {
+                    self.fetchedRepositories = repositories
+                    self.tableView.reloadData()
+                }
+            } catch {
+                await MainActor.run {
+                    self.showErrorAlert()
+                }
+            }
+        }
+    }
+}
+// MARK: - UITableViewDelegate
+extension SearchViewController {
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        return fetchedRepositories.count
+    }
+    override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        let repository = fetchedRepositories[indexPath.row]
+        cell.textLabel?.text = repository.fullName.isEmpty ? "Unknown Repository" : repository.fullName
+        cell.detailTextLabel?.text = repository.language ?? "Unknown Language"
+        cell.tag = indexPath.row
+        return cell
+    }
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedIndex = indexPath.row
+        performSegue(withIdentifier: "Detail", sender: self)
+    }
+}
+//
+//  ViewController+Alert.swift
+//  iOSEngineerCodeCheck
+//
+//  Created by kento.yamazaki on 2025/02/25.
+//  Copyright © 2025 YUMEMI Inc. All rights reserved.
+//
+import UIKit
+extension UIViewController {
+    func showErrorAlert(
+        title: String = "エラー",
+        message: String = "予期せぬエラーが発生しました",
+        okAction: (() -> Void)? = nil
+    ) {
+        showAlert(title: title, message: message, okAction: okAction)
+    }
+    func showAlert(title: String, message: String, okAction: (() -> Void)? = nil) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            okAction?()
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+```
+
+```
+ありがとうございます！ほぼ良いのですが、DetailViewControllerでエラーハンドリングを最初のように入れてくれませんか？
+```
 
 ## 参考情報
 
