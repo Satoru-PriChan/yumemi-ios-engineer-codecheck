@@ -257,7 +257,7 @@ struct URLRow: View {
                     shouldShowCopyAlert = true
                 }) {
                     Image(systemName: "doc.on.doc")
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color(UIColor.label))
                 }
                 .buttonStyle(BorderlessButtonStyle())
             } else {
