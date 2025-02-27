@@ -18,7 +18,7 @@ final class TestErrorGithubRepository: GithubRepositoryProtocol {
         // セッションは使用しない
     }
 
-    func searchRepositories(query _: String) async throws -> GithubRepositoryResponseEntity {
+    func searchRepositories(query _: String, sort _: String, order _: String, page _: Int, perPage _: Int) async throws -> GithubRepositoryResponseEntity {
         throw NSError(domain: "TestError", code: 1, userInfo: nil)
     }
 }

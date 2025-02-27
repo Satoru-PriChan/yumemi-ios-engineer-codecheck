@@ -33,7 +33,7 @@ struct SearchViewModelTests {
             }
 
             // Act, Assert
-            await viewModel.searchRepositories(query: "foo")
+            await viewModel.searchRepositories(query: "foo", sort: "", order: "", perPage: 10)
             // Wait
             try await Task.sleep(for: .seconds(0.01))
             #expect(viewModel.repositories.isEmpty == false)
@@ -59,7 +59,7 @@ struct SearchViewModelTests {
             }
 
             // Act, Assert
-            await viewModel.searchRepositories(query: "foo")
+            await viewModel.searchRepositories(query: "foo", sort: "", order: "", perPage: 10)
             // Wait
             try await Task.sleep(for: .seconds(0.01))
             #expect(viewModel.repositories.isEmpty)
