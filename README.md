@@ -19,6 +19,8 @@
 - 開発ターゲット：基本最新の安定版（本概要更新時点では iOS 17.2）
 - サードパーティーライブラリー
     - [nicklockwood/SwiftFormat](https://github.com/nicklockwood/SwiftFormat) 0.55.5
+    - [onevcat/Kingfisher](https://github.com/onevcat/Kingfisher) 8.2.0
+    - [mac-cain13/R.swift](https://github.com/mac-cain13/R.swift) 7.8.0
 
 ### 動作
 
