@@ -60,6 +60,8 @@ final class DetailViewController: UIViewController {
     // MARK: - Private functions
 
     private func setUI() {
+        // Back button color
+        navigationController?.navigationBar.tintColor = R.color.textColor()
         view.backgroundColor = R.color.backgroundColor()
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
