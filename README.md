@@ -19,6 +19,8 @@
 - 開発ターゲット：基本最新の安定版（本概要更新時点では iOS 17.2）
 - サードパーティーライブラリー
     - [nicklockwood/SwiftFormat](https://github.com/nicklockwood/SwiftFormat) 0.55.5
+    - [onevcat/Kingfisher](https://github.com/onevcat/Kingfisher) 8.2.0
+    - [mac-cain13/R.swift](https://github.com/mac-cain13/R.swift) 7.8.0
 
 ### 動作
 
@@ -635,6 +637,7 @@ extension UIViewController {
 
 ### [UI をブラッシュアップ #8](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/8)
 - [Feature/9 refine UI](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/25)
+- [Clean: Update README about libraries](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/26)
 - SearchViewControllerに画面全体の読み込みインジケータを追加
 - DetailViewControllerの画像にKingFisherを導入する
 - SearchViewControllerのタイトルを更新
