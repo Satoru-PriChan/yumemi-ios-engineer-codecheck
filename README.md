@@ -637,6 +637,7 @@ extension UIViewController {
 
 ### [UI をブラッシュアップ #8](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/8)
 - [Feature/9 refine UI](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/25)
+- [Clean: Update README about libraries](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/26)
 - SearchViewControllerに画面全体の読み込みインジケータを追加
 - DetailViewControllerの画像にKingFisherを導入する
 - SearchViewControllerのタイトルを更新
