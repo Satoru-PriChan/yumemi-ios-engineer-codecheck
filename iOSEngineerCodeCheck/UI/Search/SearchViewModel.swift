@@ -10,6 +10,7 @@ import Foundation
 
 @MainActor
 protocol SearchViewModelProtocol: ObservableObject {
+    var totalCount: Int? { get }
     var repositories: [GithubRepositoryModel] { get }
     var isLoading: Bool { get }
     var onError: ((String) -> Void)? { get set }
@@ -19,6 +20,7 @@ protocol SearchViewModelProtocol: ObservableObject {
 
 @MainActor
 final class SearchViewModel: SearchViewModelProtocol {
+    @Published var totalCount: Int? = nil
     @Published var repositories: [GithubRepositoryModel] = []
     @Published var isLoading: Bool = false
     var onError: ((String) -> Void)?
@@ -35,8 +37,10 @@ final class SearchViewModel: SearchViewModelProtocol {
         guard !query.isEmpty else { return }
         isLoading = true
         do {
-            let entities = try await repository.searchRepositories(query: query)
-            repositories = translator.translate(from: entities)
+            let responseEntity = try await repository.searchRepositories(query: query)
+            let responseModel = translator.translate(from: responseEntity)
+            repositories = responseModel.items
+            totalCount = responseModel.totalCount
         } catch {
             onError?("エラーが発生しました")
         }

@@ -10,7 +10,7 @@ import Foundation
 
 protocol GithubRepositoryTranslatorProtocol {
     func translate(from entity: GithubRepositoryEntity) -> GithubRepositoryModel
-    func translate(from entities: [GithubRepositoryEntity]) -> [GithubRepositoryModel]
+    func translate(from entity: GithubRepositoryResponseEntity) -> GithubRepositoryResponseModel
 }
 
 final class GithubRepositoryTranslator: GithubRepositoryTranslatorProtocol {
@@ -116,8 +116,12 @@ final class GithubRepositoryTranslator: GithubRepositoryTranslatorProtocol {
             licenseHtmlURL: entity.license?.htmlURL
         )
     }
-
-    func translate(from entities: [GithubRepositoryEntity]) -> [GithubRepositoryModel] {
-        return entities.map { translate(from: $0) }
+    
+    func translate(from entity: GithubRepositoryResponseEntity) -> GithubRepositoryResponseModel {
+        return .init(
+            totalCount: entity.totalCount,
+            incompleteResults: entity.incompleteResults,
+            items: entity.items.map { translate(from: $0) }
+        )
     }
 }

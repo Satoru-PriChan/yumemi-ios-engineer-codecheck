@@ -280,7 +280,11 @@ struct GithubRepositoryTranslatorTests {
     @Test(
         "Multi GithubRepositoryEntity Translation",
         arguments: [
-            [],
+            GithubRepositoryResponseEntity(totalCount: 0, incompleteResults: false, items: []),
+            GithubRepositoryResponseEntity(
+                totalCount: 2,
+                incompleteResults: true,
+                items:
             [
                 GithubRepositoryEntity(
                     id: 1,
@@ -483,16 +487,17 @@ struct GithubRepositoryTranslatorTests {
                     visibility: "",
                     license: nil
                 )
-            ]
+            ])
         ]
     )
-    func multiTranslation(_ entities: [GithubRepositoryEntity]) async throws {
-        let models = translator.translate(from: entities)
-        #expect(models.count == entities.count)
+    func multiTranslation(_ responseEntity: GithubRepositoryResponseEntity) async throws {
+        let responseModel = translator.translate(from: responseEntity)
+        #expect(responseModel.items.count == responseEntity.items.count)
+        #expect(responseModel.totalCount == responseEntity.totalCount)
         
-        for i in 0 ..< models.count {
-            let model = models[i]
-            let entity = entities[i]
+        for i in 0 ..< responseModel.items.count {
+            let model = responseModel.items[i]
+            let entity = responseEntity.items[i]
             
             // 基本情報の検証
             #expect(model.repositoryID == entity.id)

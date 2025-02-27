@@ -1,5 +1,12 @@
 import Foundation
 
+struct GithubRepositoryResponseModel: Identifiable, Sendable, Hashable {
+    let id = UUID()
+    let totalCount: Int
+    let incompleteResults: Bool
+    let items: [GithubRepositoryModel]
+}
+
 struct GithubRepositoryModel: Identifiable, Sendable, Hashable {
     // MARK: - Repository
     let id = UUID()

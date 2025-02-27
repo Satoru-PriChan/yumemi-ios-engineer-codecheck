@@ -11,7 +11,7 @@ import UIKit
 
 protocol GithubRepositoryProtocol: Sendable {
     init(session: URLSession)
-    func searchRepositories(query: String) async throws -> [GithubRepositoryEntity]
+    func searchRepositories(query: String) async throws -> GithubRepositoryResponseEntity
 }
 
 /// Github repository API caller
@@ -22,12 +22,12 @@ final actor GithubRepository: GithubRepositoryProtocol {
         self.session = session
     }
 
-    func searchRepositories(query: String) async throws -> [GithubRepositoryEntity] {
+    func searchRepositories(query: String) async throws -> GithubRepositoryResponseEntity {
         guard let url = URL(string: "https://api.github.com/search/repositories?q=\(query)") else {
             throw APIError.invalidURL
         }
         let (data, _) = try await session.data(from: url)
         let response = try JSONDecoder().decode(GithubRepositoryResponseEntity.self, from: data)
-        return response.items
+        return response
     }
 }

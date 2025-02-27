@@ -30,6 +30,15 @@ struct SearchView: View {
                     .padding(.horizontal)
                     .accessibilityIdentifier("SearchView_SearchBar")
 
+                // Total Count Display (if available)
+                if let totalCount = viewModel.totalCount {
+                    Text("\(totalCount) results found")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(Color(UIColor.secondaryLabel))
+                        .padding(.top, 8)
+                        .padding(.horizontal)
+                }
+                
                 // Repository List
                 List(viewModel.repositories) { repository in
                     Button(action: {
