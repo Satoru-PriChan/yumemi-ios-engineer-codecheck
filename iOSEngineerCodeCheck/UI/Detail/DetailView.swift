@@ -1,22 +1,22 @@
 //
-//  DetailViewController.swift
+//  DetailView.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by 史 翔新 on 2020/04/21.
 //  Copyright © 2020 YUMEMI Inc. All rights reserved.
 //
 
-import SwiftUI
 import Kingfisher
+import SwiftUI
 
 struct DetailView: View {
     @StateObject private var viewModel: DetailViewModel
     @State private var isAnimated = false
-    
+
     init(repository: GithubRepositoryModel) {
         _viewModel = StateObject(wrappedValue: DetailViewModel(repository: repository))
     }
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -27,19 +27,19 @@ struct DetailView: View {
                     .resizable()
                     .scaledToFit()
                     .cornerRadius(10)
-                
+
                 // Repository Title
                 Text(viewModel.repository.fullName)
                     .font(.largeTitle)
                     .foregroundColor(Color(UIColor.label))
                     .accessibilityIdentifier("DetailView_TitleLabel")
-                
+
                 // Language
                 Text("Written in \(viewModel.repository.language)")
                     .font(.body)
                     .foregroundColor(Color(UIColor.secondaryLabel))
                     .accessibilityIdentifier("DetailView_LanguageLabel")
-                
+
                 // Stats Section
                 VStack(alignment: .leading, spacing: 8) {
                     StatRow(image: "star", label: "Stars", count: viewModel.repository.stargazersCount, accessibilityIdentifier: "DetailView_StarsLabel")
@@ -55,7 +55,7 @@ struct DetailView: View {
         }
         .navigationTitle("Repository Details")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbarRole(.editor)//Hide back button text
+        .toolbarRole(.editor) // Hide back button text
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 isAnimated = true
@@ -65,12 +65,13 @@ struct DetailView: View {
 }
 
 // MARK: - StatRow Component
+
 struct StatRow: View {
     let image: String
     let label: String
     let count: Int
     let accessibilityIdentifier: String
-    
+
     var body: some View {
         HStack(spacing: 8) {
             Image(systemName: image)
@@ -89,7 +90,7 @@ struct StatRow: View {
                 .foregroundColor(Color(UIColor.label))
         }
     }
-    
+
     private func fontForCount(_ count: Int) -> Font {
         if count > 10000 {
             return .system(size: 18, weight: .bold)

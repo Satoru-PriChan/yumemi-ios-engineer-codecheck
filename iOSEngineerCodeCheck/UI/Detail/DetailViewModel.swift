@@ -15,7 +15,7 @@ protocol DetailViewModelProtocol: ObservableObject {
 @MainActor
 final class DetailViewModel: DetailViewModelProtocol {
     @Published var repository: GithubRepositoryModel
-    
+
     init(repository: GithubRepositoryModel) {
         self.repository = repository
     }

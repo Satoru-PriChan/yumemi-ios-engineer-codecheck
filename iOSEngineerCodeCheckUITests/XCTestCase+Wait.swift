@@ -35,13 +35,13 @@ extension XCTestCase {
 
     @MainActor
     func tapElementAndWaitForKeyboardToAppear(element: XCUIElement) {
-            let keyboard = XCUIApplication().keyboards.element
-            while (true) {
-                element.tap()
-                if keyboard.exists {
-                    break;
-                }
-                RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.5))
+        let keyboard = XCUIApplication().keyboards.element
+        while true {
+            element.tap()
+            if keyboard.exists {
+                break
             }
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.5))
         }
+    }
 }

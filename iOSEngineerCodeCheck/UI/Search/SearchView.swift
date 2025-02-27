@@ -49,7 +49,7 @@ struct SearchView: View {
             }
             .navigationTitle("Github Repositories")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbarRole(.editor)//Hide back button text
+            .toolbarRole(.editor) // Hide back button text
             .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all))
             .loadingIndicator(isShowing: Binding<Bool>(
                 get: { viewModel.isLoading },

@@ -22,15 +22,15 @@ final class SearchViewModel: SearchViewModelProtocol {
     @Published var repositories: [GithubRepositoryModel] = []
     @Published var isLoading: Bool = false
     var onError: ((String) -> Void)?
-    
+
     private let repository: GithubRepositoryProtocol
     private let translator: GithubRepositoryTranslatorProtocol
-    
+
     init(repository: GithubRepositoryProtocol = GithubRepository(), translator: GithubRepositoryTranslatorProtocol = GithubRepositoryTranslator()) {
         self.repository = repository
         self.translator = translator
     }
-    
+
     func searchRepositories(query: String) async {
         guard !query.isEmpty else { return }
         isLoading = true
@@ -42,7 +42,7 @@ final class SearchViewModel: SearchViewModelProtocol {
         }
         isLoading = false
     }
-    
+
     func showDetail(repository: GithubRepositoryModel) {
         // Navigate to detail view (can be implemented using NavigationLink or a coordinator)
         print("Navigating to detail for \(repository.fullName)")
