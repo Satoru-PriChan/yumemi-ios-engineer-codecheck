@@ -225,7 +225,7 @@ final class TestSuccessGithubRepository: GithubRepositoryProtocol {
                     disabled: false,
                     visibility: "",
                     license: nil
-                )
+                ),
             ]
         )
     }

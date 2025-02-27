@@ -43,7 +43,7 @@ struct DetailView: View {
                 // Additional Properties Section
                 VStack(alignment: .leading, spacing: 8) {
                     SectionHeader(title: "Additional Information")
-                    
+
                     // String, Int, Bool Properties
                     InfoRow(label: "Repository ID", value: String(viewModel.repository.repositoryID))
                     InfoRow(label: "Name", value: viewModel.repository.name)
@@ -65,7 +65,7 @@ struct DetailView: View {
                     InfoRow(label: "Has Pages", value: viewModel.repository.hasPages ? "Yes" : "No")
                     InfoRow(label: "Has Wiki", value: viewModel.repository.hasWiki ? "Yes" : "No")
                     InfoRow(label: "Has Downloads", value: viewModel.repository.hasDownloads ? "Yes" : "No")
-                    
+
                     // Owner Information
                     SectionHeader(title: "Owner Information")
                     InfoRow(label: "Login", value: viewModel.repository.login)
@@ -74,14 +74,14 @@ struct DetailView: View {
                     InfoRow(label: "Gravatar ID", value: viewModel.repository.gravatarId ?? "N/A")
                     InfoRow(label: "Type", value: viewModel.repository.type)
                     InfoRow(label: "Site Admin", value: viewModel.repository.siteAdmin ? "Yes" : "No")
-                    
+
                     // License Information
                     SectionHeader(title: "License Information")
                     InfoRow(label: "License Key", value: viewModel.repository.key)
                     InfoRow(label: "License Name", value: viewModel.repository.licenseName)
                     InfoRow(label: "SPDX ID", value: viewModel.repository.spdxId ?? "N/A")
                     InfoRow(label: "License Node ID", value: viewModel.repository.licenseNodeId)
-                    
+
                     // URL Properties
                     SectionHeader(title: "URLs")
                     URLRow(label: "HTML URL", url: viewModel.repository.htmlURLAsURL)
@@ -161,6 +161,7 @@ struct DetailView: View {
 }
 
 // MARK: - Section Header Component
+
 struct SectionHeader: View {
     let title: String
     var body: some View {
@@ -172,12 +173,13 @@ struct SectionHeader: View {
 }
 
 // MARK: - StatRow Component
+
 struct StatRow: View {
     let image: String
     let label: String
     let count: Int
     let accessibilityIdentifier: String
-    
+
     var body: some View {
         HStack(spacing: 8) {
             Image(systemName: image)
@@ -188,7 +190,7 @@ struct StatRow: View {
                 .foregroundColor(Color(UIColor.label))
             Text(label)
                 .font(.subheadline)
-                .foregroundColor(Color(UIColor.secondaryLabel)) .accessibilityIdentifier(accessibilityIdentifier)
+                .foregroundColor(Color(UIColor.secondaryLabel)).accessibilityIdentifier(accessibilityIdentifier)
             Spacer()
             Text("\(count)")
                 .font(fontForCount(count: count))
@@ -196,15 +198,16 @@ struct StatRow: View {
         }
     }
 
-    private func fontForCount( count: Int) -> Font { if count > 10000 { return .system(size: 18, weight: .heavy) } else if count > 1000 { return .system(size: 17, weight: .bold) } else if count > 100 { return .system(size: 16, weight: .medium) } else { return .system(size: 14, weight: .light) } }
+    private func fontForCount(count: Int) -> Font { if count > 10000 { return .system(size: 18, weight: .heavy) } else if count > 1000 { return .system(size: 17, weight: .bold) } else if count > 100 { return .system(size: 16, weight: .medium) } else { return .system(size: 14, weight: .light) } }
 }
 
 // MARK: - InfoRow Component
+
 struct InfoRow: View {
     let label: String
     let value: String
     @State private var shouldShowCopyAlert = false
-    
+
     var body: some View {
         HStack {
             Text(label)
@@ -234,11 +237,12 @@ struct InfoRow: View {
 }
 
 // MARK: - URLRow Component
+
 struct URLRow: View {
     let label: String
     let url: URL?
     @State private var shouldShowCopyAlert = false
-    
+
     var body: some View {
         HStack {
             Text(label)

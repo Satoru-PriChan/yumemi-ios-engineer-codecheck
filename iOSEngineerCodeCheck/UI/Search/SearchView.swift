@@ -130,7 +130,7 @@ struct SearchView: View {
             )
         }
     }
-    
+
     private func resetAndSearch() {
         viewModel.resetPagination()
         performSearch()

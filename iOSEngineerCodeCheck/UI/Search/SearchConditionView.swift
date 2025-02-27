@@ -59,6 +59,6 @@ struct SearchConditionView: View {
     SearchConditionView(
         selectedSort: .init(get: { .stars }, set: { _ in }),
         selectedOrder: .init(get: { .asc }, set: { _ in }),
-        selectedPerPage: .init(get: { .thirty }, set: { _ in})
+        selectedPerPage: .init(get: { .thirty }, set: { _ in })
     )
 }

@@ -116,7 +116,7 @@ final class GithubRepositoryTranslator: GithubRepositoryTranslatorProtocol {
             licenseHtmlURL: entity.license?.htmlURL
         )
     }
-    
+
     func translate(from entity: GithubRepositoryResponseEntity) -> GithubRepositoryResponseModel {
         return .init(
             totalCount: entity.totalCount,

@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import UIKit
 import OSLog
+import UIKit
 
 protocol GithubRepositoryProtocol: Sendable {
     init(session: URLSession)
@@ -31,7 +31,7 @@ final actor GithubRepository: GithubRepositoryProtocol {
             URLQueryItem(name: "sort", value: sort),
             URLQueryItem(name: "order", value: order),
             URLQueryItem(name: "page", value: String(page)),
-            URLQueryItem(name: "per_page", value: String(perPage))
+            URLQueryItem(name: "per_page", value: String(perPage)),
         ]
 
         guard let url = components.url else {

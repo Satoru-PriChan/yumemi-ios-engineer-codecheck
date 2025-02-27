@@ -175,161 +175,162 @@ struct GithubRepositoryEntity: Codable, Sendable {
         case visibility
         case license
     }
-        init(
-            id: Int,
-            nodeId: String,
-            name: String,
-            fullName: String,
-            owner: GithubOwnerEntity,
-            isPrivate: Bool,
-            htmlURL: String,
-            description: String?,
-            isFork: Bool,
-            url: String,
-            createdAt: String,
-            updatedAt: String,
-            pushedAt: String,
-            homepage: String?,
-            size: Int,
-            stargazersCount: Int,
-            watchersCount: Int,
-            language: String?,
-            forksCount: Int,
-            openIssuesCount: Int,
-            masterBranch: String?,
-            defaultBranch: String,
-            score: Int,
-            archiveURL: String,
-            assigneesURL: String,
-            blobsURL: String,
-            branchesURL: String,
-            collaboratorsURL: String,
-            commentsURL: String,
-            commitsURL: String,
-            compareURL: String,
-            contentsURL: String,
-            contributorsURL: String,
-            deploymentsURL: String,
-            downloadsURL: String,
-            eventsURL: String,
-            forksURL: String,
-            gitCommitsURL: String,
-            gitRefsURL: String,
-            gitTagsURL: String,
-            gitURL: String,
-            issueCommentURL: String,
-            issueEventsURL: String,
-            issuesURL: String,
-            keysURL: String,
-            labelsURL: String,
-            languagesURL: String,
-            mergesURL: String,
-            milestonesURL: String,
-            notificationsURL: String,
-            pullsURL: String,
-            releasesURL: String,
-            sshURL: String,
-            stargazersURL: String,
-            statusesURL: String,
-            subscribersURL: String,
-            subscriptionURL: String,
-            tagsURL: String,
-            teamsURL: String,
-            treesURL: String,
-            cloneURL: String,
-            mirrorURL: String?,
-            hooksURL: String,
-            svnURL: String,
-            forks: Int,
-            openIssues: Int,
-            watchers: Int,
-            hasIssues: Bool,
-            hasProjects: Bool,
-            hasPages: Bool,
-            hasWiki: Bool,
-            hasDownloads: Bool,
-            archived: Bool,
-            disabled: Bool,
-            visibility: String,
-            license: GithubLicenseEntity?
-        ) {
-            self.id = id
-            self.nodeId = nodeId
-            self.name = name
-            self.fullName = fullName
-            self.owner = owner
-            self.isPrivate = isPrivate
-            self.htmlURL = htmlURL
-            self.description = description
-            self.isFork = isFork
-            self.url = url
-            self.createdAt = createdAt
-            self.updatedAt = updatedAt
-            self.pushedAt = pushedAt
-            self.homepage = homepage
-            self.size = size
-            self.stargazersCount = stargazersCount
-            self.watchersCount = watchersCount
-            self.language = language
-            self.forksCount = forksCount
-            self.openIssuesCount = openIssuesCount
-            self.masterBranch = masterBranch
-            self.defaultBranch = defaultBranch
-            self.score = score
-            self.archiveURL = archiveURL
-            self.assigneesURL = assigneesURL
-            self.blobsURL = blobsURL
-            self.branchesURL = branchesURL
-            self.collaboratorsURL = collaboratorsURL
-            self.commentsURL = commentsURL
-            self.commitsURL = commitsURL
-            self.compareURL = compareURL
-            self.contentsURL = contentsURL
-            self.contributorsURL = contributorsURL
-            self.deploymentsURL = deploymentsURL
-            self.downloadsURL = downloadsURL
-            self.eventsURL = eventsURL
-            self.forksURL = forksURL
-            self.gitCommitsURL = gitCommitsURL
-            self.gitRefsURL = gitRefsURL
-            self.gitTagsURL = gitTagsURL
-            self.gitURL = gitURL
-            self.issueCommentURL = issueCommentURL
-            self.issueEventsURL = issueEventsURL
-            self.issuesURL = issuesURL
-            self.keysURL = keysURL
-            self.labelsURL = labelsURL
-            self.languagesURL = languagesURL
-            self.mergesURL = mergesURL
-            self.milestonesURL = milestonesURL
-            self.notificationsURL = notificationsURL
-            self.pullsURL = pullsURL
-            self.releasesURL = releasesURL
-            self.sshURL = sshURL
-            self.stargazersURL = stargazersURL
-            self.statusesURL = statusesURL
-            self.subscribersURL = subscribersURL
-            self.subscriptionURL = subscriptionURL
-            self.tagsURL = tagsURL
-            self.teamsURL = teamsURL
-            self.treesURL = treesURL
-            self.cloneURL = cloneURL
-            self.mirrorURL = mirrorURL
-            self.hooksURL = hooksURL
-            self.svnURL = svnURL
-            self.forks = forks
-            self.openIssues = openIssues
-            self.watchers = watchers
-            self.hasIssues = hasIssues
-            self.hasProjects = hasProjects
-            self.hasPages = hasPages
-            self.hasWiki = hasWiki
-            self.hasDownloads = hasDownloads
-            self.archived = archived
-            self.disabled = disabled
-            self.visibility = visibility
-            self.license = license
-        }
+
+    init(
+        id: Int,
+        nodeId: String,
+        name: String,
+        fullName: String,
+        owner: GithubOwnerEntity,
+        isPrivate: Bool,
+        htmlURL: String,
+        description: String?,
+        isFork: Bool,
+        url: String,
+        createdAt: String,
+        updatedAt: String,
+        pushedAt: String,
+        homepage: String?,
+        size: Int,
+        stargazersCount: Int,
+        watchersCount: Int,
+        language: String?,
+        forksCount: Int,
+        openIssuesCount: Int,
+        masterBranch: String?,
+        defaultBranch: String,
+        score: Int,
+        archiveURL: String,
+        assigneesURL: String,
+        blobsURL: String,
+        branchesURL: String,
+        collaboratorsURL: String,
+        commentsURL: String,
+        commitsURL: String,
+        compareURL: String,
+        contentsURL: String,
+        contributorsURL: String,
+        deploymentsURL: String,
+        downloadsURL: String,
+        eventsURL: String,
+        forksURL: String,
+        gitCommitsURL: String,
+        gitRefsURL: String,
+        gitTagsURL: String,
+        gitURL: String,
+        issueCommentURL: String,
+        issueEventsURL: String,
+        issuesURL: String,
+        keysURL: String,
+        labelsURL: String,
+        languagesURL: String,
+        mergesURL: String,
+        milestonesURL: String,
+        notificationsURL: String,
+        pullsURL: String,
+        releasesURL: String,
+        sshURL: String,
+        stargazersURL: String,
+        statusesURL: String,
+        subscribersURL: String,
+        subscriptionURL: String,
+        tagsURL: String,
+        teamsURL: String,
+        treesURL: String,
+        cloneURL: String,
+        mirrorURL: String?,
+        hooksURL: String,
+        svnURL: String,
+        forks: Int,
+        openIssues: Int,
+        watchers: Int,
+        hasIssues: Bool,
+        hasProjects: Bool,
+        hasPages: Bool,
+        hasWiki: Bool,
+        hasDownloads: Bool,
+        archived: Bool,
+        disabled: Bool,
+        visibility: String,
+        license: GithubLicenseEntity?
+    ) {
+        self.id = id
+        self.nodeId = nodeId
+        self.name = name
+        self.fullName = fullName
+        self.owner = owner
+        self.isPrivate = isPrivate
+        self.htmlURL = htmlURL
+        self.description = description
+        self.isFork = isFork
+        self.url = url
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.pushedAt = pushedAt
+        self.homepage = homepage
+        self.size = size
+        self.stargazersCount = stargazersCount
+        self.watchersCount = watchersCount
+        self.language = language
+        self.forksCount = forksCount
+        self.openIssuesCount = openIssuesCount
+        self.masterBranch = masterBranch
+        self.defaultBranch = defaultBranch
+        self.score = score
+        self.archiveURL = archiveURL
+        self.assigneesURL = assigneesURL
+        self.blobsURL = blobsURL
+        self.branchesURL = branchesURL
+        self.collaboratorsURL = collaboratorsURL
+        self.commentsURL = commentsURL
+        self.commitsURL = commitsURL
+        self.compareURL = compareURL
+        self.contentsURL = contentsURL
+        self.contributorsURL = contributorsURL
+        self.deploymentsURL = deploymentsURL
+        self.downloadsURL = downloadsURL
+        self.eventsURL = eventsURL
+        self.forksURL = forksURL
+        self.gitCommitsURL = gitCommitsURL
+        self.gitRefsURL = gitRefsURL
+        self.gitTagsURL = gitTagsURL
+        self.gitURL = gitURL
+        self.issueCommentURL = issueCommentURL
+        self.issueEventsURL = issueEventsURL
+        self.issuesURL = issuesURL
+        self.keysURL = keysURL
+        self.labelsURL = labelsURL
+        self.languagesURL = languagesURL
+        self.mergesURL = mergesURL
+        self.milestonesURL = milestonesURL
+        self.notificationsURL = notificationsURL
+        self.pullsURL = pullsURL
+        self.releasesURL = releasesURL
+        self.sshURL = sshURL
+        self.stargazersURL = stargazersURL
+        self.statusesURL = statusesURL
+        self.subscribersURL = subscribersURL
+        self.subscriptionURL = subscriptionURL
+        self.tagsURL = tagsURL
+        self.teamsURL = teamsURL
+        self.treesURL = treesURL
+        self.cloneURL = cloneURL
+        self.mirrorURL = mirrorURL
+        self.hooksURL = hooksURL
+        self.svnURL = svnURL
+        self.forks = forks
+        self.openIssues = openIssues
+        self.watchers = watchers
+        self.hasIssues = hasIssues
+        self.hasProjects = hasProjects
+        self.hasPages = hasPages
+        self.hasWiki = hasWiki
+        self.hasDownloads = hasDownloads
+        self.archived = archived
+        self.disabled = disabled
+        self.visibility = visibility
+        self.license = license
+    }
 }
 
 // オーナー情報を表す構造体
@@ -373,7 +374,7 @@ struct GithubOwnerEntity: Codable, Sendable {
         case eventsURL = "events_url"
         case siteAdmin = "site_admin"
     }
-    
+
     init(
         login: String,
         id: Int,
@@ -431,7 +432,7 @@ struct GithubLicenseEntity: Codable, Sendable {
         case nodeId = "node_id"
         case htmlURL = "html_url"
     }
-    
+
     init(
         key: String,
         name: String,

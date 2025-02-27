@@ -9,6 +9,7 @@ struct GithubRepositoryResponseModel: Identifiable, Sendable, Hashable {
 
 struct GithubRepositoryModel: Identifiable, Sendable, Hashable {
     // MARK: - Repository
+
     let id = UUID()
     let repositoryID: Int
     let fullName: String
@@ -85,7 +86,9 @@ struct GithubRepositoryModel: Identifiable, Sendable, Hashable {
     let archived: Bool
     let disabled: Bool
     let visibility: String
+
     // MARK: - Owner
+
     let login: String
     let ownerId: Int
     let ownerNodeId: String
@@ -103,7 +106,9 @@ struct GithubRepositoryModel: Identifiable, Sendable, Hashable {
     let reposURL: String
     let ownerEventsURL: String
     let siteAdmin: Bool
+
     // MARK: - License
+
     let key: String
     let licenseName: String
     let licenseUrl: String?
@@ -112,6 +117,7 @@ struct GithubRepositoryModel: Identifiable, Sendable, Hashable {
     let licenseHtmlURL: String?
 
     // MARK: - Computed Properties for URL Conversion
+
     var htmlURLAsURL: URL? { URL(string: htmlURL) }
     var urlAsURL: URL? { URL(string: url) }
     var avatarURLAsURL: URL? { URL(string: avatarURL) }
