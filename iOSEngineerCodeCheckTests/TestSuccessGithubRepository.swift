@@ -49,8 +49,4 @@ final class TestSuccessGithubRepository: GithubRepositoryProtocol {
             ),
         ]
     }
-
-    func fetchImage(from _: String) async throws -> UIImage {
-        return UIImage()
-    }
 }

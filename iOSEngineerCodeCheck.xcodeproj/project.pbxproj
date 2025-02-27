@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		370D78BE2D6FCE800025D635 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 370D78BD2D6FCE800025D635 /* RswiftLibrary */; };
 		373E77352D6D91D4004AE4A4 /* SwiftFormat in Frameworks */ = {isa = PBXBuildFile; productRef = 373E77342D6D91D4004AE4A4 /* SwiftFormat */; };
 		378B078A2D6EE69C008A35ED /* GithubRepositoryTranslatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B07892D6EE69C008A35ED /* GithubRepositoryTranslatorTests.swift */; };
 		378B078C2D6EED4B008A35ED /* TestErrorGithubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B078B2D6EED4B008A35ED /* TestErrorGithubRepository.swift */; };
 		378B078E2D6EEE59008A35ED /* TestSuccessGithubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B078D2D6EEE59008A35ED /* TestSuccessGithubRepository.swift */; };
-		378B07902D6EEEB8008A35ED /* DetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B078F2D6EEEB8008A35ED /* DetailViewModelTests.swift */; };
 		378B07922D6EF138008A35ED /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B07912D6EF138008A35ED /* SearchViewModelTests.swift */; };
 		378B07942D6EF96F008A35ED /* XCTestCase+Wait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B07932D6EF96E008A35ED /* XCTestCase+Wait.swift */; };
+		37E2A2C52D6F4FEC005C7A9F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 37E2A2C42D6F4FEC005C7A9F /* Kingfisher */; };
 		BFD945E8244DC5EB0012785A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFD945E7244DC5EB0012785A /* Assets.xcassets */; };
 		BFD94601244DC5EC0012785A /* iOSEngineerCodeCheckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD94600244DC5EC0012785A /* iOSEngineerCodeCheckUITests.swift */; };
 /* End PBXBuildFile section */
@@ -40,7 +41,6 @@
 		378B07892D6EE69C008A35ED /* GithubRepositoryTranslatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepositoryTranslatorTests.swift; sourceTree = "<group>"; };
 		378B078B2D6EED4B008A35ED /* TestErrorGithubRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestErrorGithubRepository.swift; sourceTree = "<group>"; };
 		378B078D2D6EEE59008A35ED /* TestSuccessGithubRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSuccessGithubRepository.swift; sourceTree = "<group>"; };
-		378B078F2D6EEEB8008A35ED /* DetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModelTests.swift; sourceTree = "<group>"; };
 		378B07912D6EF138008A35ED /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTests.swift; sourceTree = "<group>"; };
 		378B07932D6EF96E008A35ED /* XCTestCase+Wait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Wait.swift"; sourceTree = "<group>"; };
 		BFD945DB244DC5E80012785A /* iOSEngineerCodeCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSEngineerCodeCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,7 +67,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37E2A2C52D6F4FEC005C7A9F /* Kingfisher in Frameworks */,
 				373E77352D6D91D4004AE4A4 /* SwiftFormat in Frameworks */,
+				370D78BE2D6FCE800025D635 /* RswiftLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,7 +132,6 @@
 				378B07892D6EE69C008A35ED /* GithubRepositoryTranslatorTests.swift */,
 				378B078B2D6EED4B008A35ED /* TestErrorGithubRepository.swift */,
 				378B078D2D6EEE59008A35ED /* TestSuccessGithubRepository.swift */,
-				378B078F2D6EEEB8008A35ED /* DetailViewModelTests.swift */,
 				378B07912D6EF138008A35ED /* SearchViewModelTests.swift */,
 				378B07882D6EE69B008A35ED /* iOSEngineerCodeCheckTests-Bridging-Header.h */,
 			);
@@ -161,6 +162,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				370D78C02D6FCE9F0025D635 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				37560D032D6D9D08000FB0F6 /* Extensions */,
@@ -247,6 +249,8 @@
 			mainGroup = BFD945D2244DC5E80012785A;
 			packageReferences = (
 				373E77332D6D91D4004AE4A4 /* XCRemoteSwiftPackageReference "SwiftFormat" */,
+				37E2A2C32D6F4FEC005C7A9F /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				370D78BC2D6FCE800025D635 /* XCRemoteSwiftPackageReference "R" */,
 			);
 			productRefGroup = BFD945DC244DC5E80012785A /* Products */;
 			projectDirPath = "";
@@ -299,7 +303,6 @@
 				378B078C2D6EED4B008A35ED /* TestErrorGithubRepository.swift in Sources */,
 				378B078A2D6EE69C008A35ED /* GithubRepositoryTranslatorTests.swift in Sources */,
 				378B078E2D6EEE59008A35ED /* TestSuccessGithubRepository.swift in Sources */,
-				378B07902D6EEEB8008A35ED /* DetailViewModelTests.swift in Sources */,
 				378B07922D6EF138008A35ED /* SearchViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,6 +319,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		370D78C02D6FCE9F0025D635 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 370D78BF2D6FCE9F0025D635 /* RswiftGenerateInternalResources */;
+		};
 		BFD945F3244DC5EB0012785A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BFD945DA244DC5E80012785A /* iOSEngineerCodeCheck */;
@@ -608,6 +615,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		370D78BC2D6FCE800025D635 /* XCRemoteSwiftPackageReference "R" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-cain13/R.swift";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 7.8.0;
+			};
+		};
 		373E77332D6D91D4004AE4A4 /* XCRemoteSwiftPackageReference "SwiftFormat" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nicklockwood/SwiftFormat.git";
@@ -616,13 +631,36 @@
 				minimumVersion = 0.55.5;
 			};
 		};
+		37E2A2C32D6F4FEC005C7A9F /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 8.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		370D78BD2D6FCE800025D635 /* RswiftLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 370D78BC2D6FCE800025D635 /* XCRemoteSwiftPackageReference "R" */;
+			productName = RswiftLibrary;
+		};
+		370D78BF2D6FCE9F0025D635 /* RswiftGenerateInternalResources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 370D78BC2D6FCE800025D635 /* XCRemoteSwiftPackageReference "R" */;
+			productName = "plugin:RswiftGenerateInternalResources";
+		};
 		373E77342D6D91D4004AE4A4 /* SwiftFormat */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 373E77332D6D91D4004AE4A4 /* XCRemoteSwiftPackageReference "SwiftFormat" */;
 			productName = SwiftFormat;
+		};
+		37E2A2C42D6F4FEC005C7A9F /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37E2A2C32D6F4FEC005C7A9F /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

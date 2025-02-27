@@ -12,7 +12,6 @@ import UIKit
 protocol GithubRepositoryProtocol: Sendable {
     init(session: URLSession)
     func searchRepositories(query: String) async throws -> [GithubRepositoryEntity]
-    func fetchImage(from urlString: String) async throws -> UIImage
 }
 
 /// Github repository API caller
@@ -30,16 +29,5 @@ final actor GithubRepository: GithubRepositoryProtocol {
         let (data, _) = try await session.data(from: url)
         let response = try JSONDecoder().decode(GithubRepositoryResponseEntity.self, from: data)
         return response.items
-    }
-
-    func fetchImage(from urlString: String) async throws -> UIImage {
-        guard let url = URL(string: urlString) else {
-            throw APIError.invalidURL
-        }
-        let (data, _) = try await session.data(from: url)
-        guard let image = UIImage(data: data) else {
-            throw APIError.invalidImageData
-        }
-        return image
     }
 }
