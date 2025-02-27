@@ -6,48 +6,42 @@
 //  Copyright © 2025 YUMEMI Inc. All rights reserved.
 //
 
-import UIKit
+import SwiftUI
 
-@MainActor
-class LoadingIndicator {
-    private static var window: UIWindow?
-    private static var indicator: UIActivityIndicatorView?
+struct LoadingIndicator: View {
+    @Binding var isShowing: Bool
 
-    // インジケータを表示
-    static func show() {
-        guard window == nil else { return }
+    var body: some View {
+        ZStack {
+            if isShowing {
+                Color.black.opacity(0.5) // Background dimming
+                    .edgesIgnoringSafeArea(.all)
 
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let newWindow = UIWindow(windowScene: windowScene!)
-        newWindow.frame = UIScreen.main.bounds
-        newWindow.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        newWindow.windowLevel = .alert + 1
-
-        let indicator = UIActivityIndicatorView(style: .large)
-        indicator.color = .white
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.startAnimating()
-
-        let rootViewController = UIViewController()
-        rootViewController.view.backgroundColor = .clear
-        rootViewController.view.addSubview(indicator)
-
-        NSLayoutConstraint.activate([
-            indicator.centerXAnchor.constraint(equalTo: rootViewController.view.centerXAnchor),
-            indicator.centerYAnchor.constraint(equalTo: rootViewController.view.centerYAnchor),
-        ])
-
-        newWindow.rootViewController = rootViewController
-        newWindow.makeKeyAndVisible()
-
-        window = newWindow
-        self.indicator = indicator
+                ProgressView() // SwiftUI's equivalent of UIActivityIndicatorView
+                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    .scaleEffect(2) // Increase size for visibility
+            }
+        }
     }
+}
 
-    // インジケータを非表示
-    static func hide() {
-        window?.isHidden = true
-        window = nil
-        indicator = nil
+// MARK: - View Modifier for Easy Integration
+
+struct LoadingIndicatorModifier: ViewModifier {
+    @Binding var isShowing: Bool
+
+    func body(content: Content) -> some View {
+        ZStack {
+            content
+            if isShowing {
+                LoadingIndicator(isShowing: $isShowing)
+            }
+        }
+    }
+}
+
+extension View {
+    func loadingIndicator(isShowing: Binding<Bool>) -> some View {
+        modifier(LoadingIndicatorModifier(isShowing: isShowing))
     }
 }

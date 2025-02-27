@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct GithubRepositoryModel {
+struct GithubRepositoryModel: Identifiable, Sendable, Hashable {
+    let id = UUID()
     let fullName: String
     let language: String
     let stargazersCount: Int
