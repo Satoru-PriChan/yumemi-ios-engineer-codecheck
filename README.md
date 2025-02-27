@@ -633,6 +633,23 @@ extension UIViewController {
     - SearchViewControllerからDetailViewControllerへ、そしてSearchViewControllerへ戻る回帰テスト
 - テストカバレッジは87%
 
+### [UI をブラッシュアップ #8](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/8)
+- [Feature/9 refine UI](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/25)
+- SearchViewControllerに画面全体の読み込みインジケータを追加
+- DetailViewControllerの画像にKingFisherを導入する
+- SearchViewControllerのタイトルを更新
+- 戻るボタンのテキストを削除
+- UIの色とフォントを更新
+- DetailViewControllerの外観にアニメーションを追加
+- スター、ウォッチャー、フォーク、openIssueの画像の追加とフォントの更新
+- LanguageLabelを複数行にする
+- ナビゲーションの戻るボタンの色を更新
+
+|写真|写真|動画|
+|:---:|:---:|:---:|
+| ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-02-27 at 09 44 41](https://github.com/user-attachments/assets/a797f3e6-0536-489c-ad60-35c39f6ca4ae) | ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-02-27 at 09 44 46](https://github.com/user-attachments/assets/22912541-bec5-46e3-91a8-af2b9baa1abf) | https://github.com/user-attachments/assets/3bf0a107-9b48-404f-b866-4458b71986ca |
+
+
 ## 参考情報
 
 提出された課題の評価ポイントについても詳しく書かれてありますので、ぜひご覧ください。
