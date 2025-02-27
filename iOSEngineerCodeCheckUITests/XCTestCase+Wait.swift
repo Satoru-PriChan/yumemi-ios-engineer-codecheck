@@ -32,4 +32,16 @@ extension XCTestCase {
         XCTAssertEqual(result, .completed, file: file, line: line)
         return element
     }
+
+    @MainActor
+    func tapElementAndWaitForKeyboardToAppear(element: XCUIElement) {
+            let keyboard = XCUIApplication().keyboards.element
+            while (true) {
+                element.tap()
+                if keyboard.exists {
+                    break;
+                }
+                RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.5))
+            }
+        }
 }

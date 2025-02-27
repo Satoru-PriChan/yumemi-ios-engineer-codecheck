@@ -22,26 +22,22 @@ struct SearchViewModelTests {
         // Arrange
         let mockRepository = TestSuccessGithubRepository(session: URLSession.shared)
         let viewModel = SearchViewModel(repository: mockRepository, translator: GithubRepositoryTranslator())
-        try await confirmation { repositriesFethced in
-            viewModel.repositoriesPublisher
-                .sink { repositories in
-                    if repositories.isEmpty == false {
-                        // Assert
-                        repositriesFethced()
-                    }
-                }
-                .store(in: &cancellables)
+        // Assert
+        #expect(viewModel.repositories.isEmpty)
+        #expect(viewModel.isLoading == false)
+        // Act
+        try await confirmation(expectedCount: 0) { errorCalled in
+            viewModel.onError = { _ in
+                errorCalled()
+            }
 
             // Act, Assert
-            #expect(viewModel.repositories.isEmpty)
-            #expect(viewModel.errorMessage == nil)
             await viewModel.searchRepositories(query: "foo")
             // Wait
             try await Task.sleep(for: .seconds(0.01))
+            #expect(viewModel.repositories.isEmpty == false)
+            #expect(viewModel.isLoading == false)
         }
-        // Assert
-        #expect(viewModel.repositories.isEmpty == false)
-        #expect(viewModel.errorMessage == nil)
     }
 
     @MainActor
@@ -50,25 +46,21 @@ struct SearchViewModelTests {
         // Arrange
         let mockRepository = TestErrorGithubRepository(session: URLSession.shared)
         let viewModel = SearchViewModel(repository: mockRepository, translator: GithubRepositoryTranslator())
-        try await confirmation { errorFetched in
-            viewModel.errorMessagePublisher
-                .sink { errorMessage in
-                    if errorMessage != nil {
-                        // Assert
-                        errorFetched()
-                    }
-                }
-                .store(in: &cancellables)
+        // Assert
+        #expect(viewModel.repositories.isEmpty)
+        #expect(viewModel.isLoading == false)
+        // Act
+        try await confirmation(expectedCount: 1) { errorCalled in
+            viewModel.onError = { _ in
+                errorCalled()
+            }
 
             // Act, Assert
-            #expect(viewModel.repositories.isEmpty)
-            #expect(viewModel.errorMessage == nil)
             await viewModel.searchRepositories(query: "foo")
             // Wait
             try await Task.sleep(for: .seconds(0.01))
+            #expect(viewModel.repositories.isEmpty)
+            #expect(viewModel.isLoading == false)
         }
-        // Assert
-        #expect(viewModel.repositories.isEmpty)
-        #expect(viewModel.errorMessage != nil)
     }
 }
