@@ -17,6 +17,10 @@ struct SearchView: View {
     @State private var isShowingErrorAlert = false
     @State private var errorMessage = ""
     @State private var navigationPath = NavigationPath()
+    @State private var selectedSort: SearchSortType = .stars
+    @State private var selectedOrder: SearchOrderType = .desc
+    @State private var selectedPerPage: SearchPerPageType = .thirty
+    @State private var isShowingSearchCondition = false
 
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -38,26 +42,58 @@ struct SearchView: View {
                         .padding(.top, 8)
                         .padding(.horizontal)
                 }
-                
-                // Repository List
-                List(viewModel.repositories) { repository in
-                    Button(action: {
-                        navigationPath.append(repository) // Navigate to DetailView
-                    }) {
-                        VStack(alignment: .leading) {
-                            Text(repository.fullName)
-                                .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(Color(UIColor.label))
-                            Text("\(repository.stargazersCount) Star")
-                                .font(.system(size: 14, weight: .thin))
-                                .foregroundColor(Color(UIColor.secondaryLabel))
+
+                // Repository List with Pagination
+                if viewModel.repositories.count > 0 {
+                    List {
+                        ForEach(viewModel.repositories) { repository in
+                            Button(action: {
+                                navigationPath.append(repository) // Navigate to DetailView
+                            }) {
+                                VStack(alignment: .leading) {
+                                    Text(repository.fullName)
+                                        .font(.system(size: 16, weight: .bold))
+                                        .foregroundColor(Color(UIColor.label))
+                                    Text("\(repository.stargazersCount) Star")
+                                        .font(.system(size: 14, weight: .thin))
+                                        .foregroundColor(Color(UIColor.secondaryLabel))
+                                }
+                            }
+                        }
+                        SearchListFooterView {
+                            Task {
+                                await viewModel.loadNextPage()
+                            }
                         }
                     }
+                    .listStyle(PlainListStyle())
+                    .refreshable {
+                        resetAndSearch()
+                    }
+                } else {
+                    Spacer()
                 }
-                .listStyle(PlainListStyle())
             }
             .navigationTitle("Github Repositories")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isShowingSearchCondition = true
+                    } label: {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                            .foregroundColor(Color(UIColor.secondaryLabel))
+                    }
+                }
+            }
+            .sheet(isPresented: $isShowingSearchCondition) {
+                SearchConditionView(
+                    selectedSort: $selectedSort,
+                    selectedOrder: $selectedOrder,
+                    selectedPerPage: $selectedPerPage
+                )
+                .presentationDetents([.medium]) // モーダルのサイズを調整
+            }
             .toolbarRole(.editor) // Hide back button text
             .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all))
             .loadingIndicator(isShowing: Binding<Bool>(
@@ -86,7 +122,17 @@ struct SearchView: View {
 
     private func performSearch() {
         Task {
-            await viewModel.searchRepositories(query: searchText)
+            await viewModel.searchRepositories(
+                query: searchText,
+                sort: selectedSort.rawValue,
+                order: selectedOrder.rawValue,
+                perPage: selectedPerPage.rawValue
+            )
         }
+    }
+    
+    private func resetAndSearch() {
+        viewModel.resetPagination()
+        performSearch()
     }
 }
