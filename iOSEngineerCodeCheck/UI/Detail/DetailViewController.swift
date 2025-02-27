@@ -7,8 +7,8 @@
 //
 
 import Combine
-import UIKit
 import Kingfisher
+import UIKit
 
 struct DetailViewControllerFactory {
     private init() {}
@@ -36,7 +36,7 @@ final class DetailViewController: UIViewController {
     @IBOutlet private var watchersImageView: UIImageView!
     @IBOutlet private var forksImageView: UIImageView!
     @IBOutlet private var openIssuesImageView: UIImageView!
-    
+
     var viewModel: DetailViewModelProtocol?
     private var cancellables = Set<AnyCancellable>()
 
@@ -51,7 +51,7 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         setUI()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         animateUI()
@@ -123,7 +123,7 @@ final class DetailViewController: UIViewController {
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: imageURL)
     }
-    
+
     private func updateCountFonts(with repository: GithubRepositoryModel) {
         if repository.stargazersCount > 100 {
             starsCountLabel.font = .systemFont(ofSize: 16, weight: .medium)
@@ -134,7 +134,7 @@ final class DetailViewController: UIViewController {
         } else {
             starsCountLabel.font = .systemFont(ofSize: 14, weight: .light)
         }
-        
+
         if repository.watchersCount > 100 {
             watchersCountLabel.font = .systemFont(ofSize: 16, weight: .medium)
         } else if repository.watchersCount > 1000 {
@@ -144,7 +144,7 @@ final class DetailViewController: UIViewController {
         } else {
             watchersCountLabel.font = .systemFont(ofSize: 14, weight: .light)
         }
-        
+
         if repository.forksCount > 100 {
             forksCountLabel.font = .systemFont(ofSize: 16, weight: .medium)
         } else if repository.forksCount > 1000 {
@@ -154,20 +154,20 @@ final class DetailViewController: UIViewController {
         } else {
             forksCountLabel.font = .systemFont(ofSize: 14, weight: .light)
         }
-        
+
         openIssuesCountLabel.font = .systemFont(ofSize: 14, weight: .light)
     }
-    
+
     private func prepareAnimation() {
-        self.imageView.alpha = 0.1
-        self.titleLabel.alpha = 0.1
-        self.languageLabel.alpha = 0.1
-        self.starsLabel.alpha = 0.1
-        self.watchersLabel.alpha = 0.1
-        self.forksLabel.alpha = 0.1
-        self.openIssuesLabel.alpha = 0.1
+        imageView.alpha = 0.1
+        titleLabel.alpha = 0.1
+        languageLabel.alpha = 0.1
+        starsLabel.alpha = 0.1
+        watchersLabel.alpha = 0.1
+        forksLabel.alpha = 0.1
+        openIssuesLabel.alpha = 0.1
     }
-    
+
     private func animateUI() {
         UIView.animate(withDuration: 0.5, animations: {
             self.imageView.alpha = 1

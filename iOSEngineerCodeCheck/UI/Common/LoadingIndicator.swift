@@ -34,13 +34,13 @@ class LoadingIndicator {
 
         NSLayoutConstraint.activate([
             indicator.centerXAnchor.constraint(equalTo: rootViewController.view.centerXAnchor),
-            indicator.centerYAnchor.constraint(equalTo: rootViewController.view.centerYAnchor)
+            indicator.centerYAnchor.constraint(equalTo: rootViewController.view.centerYAnchor),
         ])
 
         newWindow.rootViewController = rootViewController
         newWindow.makeKeyAndVisible()
 
-        self.window = newWindow
+        window = newWindow
         self.indicator = indicator
     }
 
