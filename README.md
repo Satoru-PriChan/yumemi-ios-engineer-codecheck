@@ -659,6 +659,31 @@ extension UIViewController {
 |:---:|:---:|:---:|
 | ![Simulator Screenshot - iPhone 16 - 2025-02-27 at 13 45 53](https://github.com/user-attachments/assets/08ae60f1-7aa9-440f-8cf0-ee4da1c32571) |  ![Simulator Screenshot - iPhone 16 - 2025-02-27 at 13 45 58](https://github.com/user-attachments/assets/287f6dc3-c77c-4964-8919-a18c034b9e18) |  https://github.com/user-attachments/assets/4f0ef8a0-374b-461d-8c45-45191fee38b0 |
 
+### [新機能追加 #9](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/9)
+[Feature/9 add new features](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/28)
+- DetailViewを更新してすべてのAPIレスポンスを表示する
+    - すべての情報をクリップボードにコピーできる
+    - URLをタップしてSafariにジャンプできる
+- SearchViewを更新し、検索数の合計を表示
+- 検索条件ボタンを追加し、検索条件のモーダルビューを表示
+- 全ての検索条件を設定可能(星、フォーク、更新、Asc、Desc、ページ単位)
+- SearchViewにページネーション機能を追加
+- SeachViewの各行に言語情報と説明を追加
+
+- 写真
+
+||||||
+|:---:|:---:|:---:|:---:|:---:|
+|  ![Simulator Screenshot - iPhone 16 - 2025-03-01 at 00 04 36](https://github.com/user-attachments/assets/49e3b4f4-b652-4338-9add-f5f898211f1c) |  ![Simulator Screenshot - iPhone 16 - 2025-03-01 at 00 04 44](https://github.com/user-attachments/assets/302bb8b6-9d30-4e41-9dc8-dfdcd5d7871d) |  ![Simulator Screenshot - iPhone 16 - 2025-03-01 at 00 04 53](https://github.com/user-attachments/assets/fe766e2a-32c6-4d30-9300-16980d7b807f) |  ![Simulator Screenshot - iPhone 16 - 2025-03-01 at 00 04 58](https://github.com/user-attachments/assets/e7917d14-78e4-4bbb-bddb-a44fa04f4dd6) |  ![Simulator Screenshot - iPhone 16 - 2025-03-01 at 00 05 02](https://github.com/user-attachments/assets/af354229-1ac1-4d77-9f78-8adfe4a45b1a) |
+
+- 動画
+https://drive.google.com/file/d/1xDKs4NaMrrMqWlbgLV9S4kiWUXIS6DOy/view?usp=sharing
+
+- プロンプト
+- `以下のSwiftファイルの検索画面に、Githubリポジトリのタイトルとスター数が表示されています。しかし、これに加えて、言語、詳細情報（一行のみ）も表示したいのですが、可能でしょうか？GithubRepositoryModelのlanguage、descriptionにそれら情報が入っています。`
+- `最高です！一点だけ、言語の欄の色のついた丸がありますが、この色って言語ごとに変えられたりしますか？`
+- `最高です！型安全のため、辞書型ではなく、専用のenumを定義してやることはできますか？`
+
 ## 参考情報
 
 提出された課題の評価ポイントについても詳しく書かれてありますので、ぜひご覧ください。

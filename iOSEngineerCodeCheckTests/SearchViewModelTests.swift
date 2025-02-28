@@ -25,6 +25,7 @@ struct SearchViewModelTests {
         // Assert
         #expect(viewModel.repositories.isEmpty)
         #expect(viewModel.isLoading == false)
+        #expect(viewModel.totalCount == nil)
         // Act
         try await confirmation(expectedCount: 0) { errorCalled in
             viewModel.onError = { _ in
@@ -32,11 +33,12 @@ struct SearchViewModelTests {
             }
 
             // Act, Assert
-            await viewModel.searchRepositories(query: "foo")
+            await viewModel.searchRepositories(query: "foo", sort: "", order: "", perPage: 10)
             // Wait
             try await Task.sleep(for: .seconds(0.01))
             #expect(viewModel.repositories.isEmpty == false)
             #expect(viewModel.isLoading == false)
+            #expect(viewModel.totalCount != nil)
         }
     }
 
@@ -49,6 +51,7 @@ struct SearchViewModelTests {
         // Assert
         #expect(viewModel.repositories.isEmpty)
         #expect(viewModel.isLoading == false)
+        #expect(viewModel.totalCount == nil)
         // Act
         try await confirmation(expectedCount: 1) { errorCalled in
             viewModel.onError = { _ in
@@ -56,11 +59,12 @@ struct SearchViewModelTests {
             }
 
             // Act, Assert
-            await viewModel.searchRepositories(query: "foo")
+            await viewModel.searchRepositories(query: "foo", sort: "", order: "", perPage: 10)
             // Wait
             try await Task.sleep(for: .seconds(0.01))
             #expect(viewModel.repositories.isEmpty)
             #expect(viewModel.isLoading == false)
+            #expect(viewModel.totalCount == nil)
         }
     }
 }
