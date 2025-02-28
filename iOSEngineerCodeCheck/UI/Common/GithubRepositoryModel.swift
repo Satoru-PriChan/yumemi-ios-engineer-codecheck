@@ -175,8 +175,9 @@ struct GithubRepositoryModel: Identifiable, Sendable, Hashable {
     var ownerEventsURLAsURL: URL? { URL(string: ownerEventsURL) }
     var licenseUrlAsURL: URL? { licenseUrl.flatMap { URL(string: $0) } }
     var licenseHtmlURLAsURL: URL? { licenseHtmlURL.flatMap { URL(string: $0) } }
-    
+
     // MARK: - Others
+
     // String? 型の language を Language? 型に変換
     var languageType: SearchLanguage? {
         return SearchLanguage(rawValue: language)

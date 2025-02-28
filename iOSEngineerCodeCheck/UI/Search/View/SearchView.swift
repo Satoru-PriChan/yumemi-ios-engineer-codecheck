@@ -76,7 +76,7 @@ struct SearchView: View {
             }
         }
     }
-    
+
     private var searchField: some View {
         TextField("Search Github Repositories...", text: $searchText, onCommit: performSearch)
             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -86,7 +86,7 @@ struct SearchView: View {
             .padding(.horizontal)
             .accessibilityIdentifier("SearchView_SearchBar")
     }
-    
+
     private var list: some View {
         List {
             ForEach(viewModel.repositories) { repository in
@@ -134,7 +134,7 @@ struct SearchView: View {
     }
 }
 
-struct TotalCountLabel:  View {
+struct TotalCountLabel: View {
     let totalCount: Int
 
     var body: some View {
@@ -152,14 +152,14 @@ struct SearchListRow: View {
     let languageColor: Color
     let languageName: String
     let description: String?
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             // repository name
             Text(repositoryName)
                 .font(.system(size: 16, weight: .bold))
                 .foregroundColor(Color(UIColor.label))
-            
+
             // stars
             HStack {
                 Image(systemName: "star.fill")
@@ -168,7 +168,7 @@ struct SearchListRow: View {
                     .font(.system(size: 14, weight: .thin))
                     .foregroundColor(Color(UIColor.secondaryLabel))
             }
-            
+
             // language
             HStack {
                 Image(systemName: "circle.fill")
@@ -178,7 +178,7 @@ struct SearchListRow: View {
                     .font(.system(size: 14, weight: .regular))
                     .foregroundColor(Color(UIColor.secondaryLabel))
             }
-            
+
             // description
             if let description = description {
                 Text(description)
