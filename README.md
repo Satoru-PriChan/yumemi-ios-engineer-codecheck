@@ -127,7 +127,7 @@ XcodeProject > 右クリック > SwiftFormatPlugin をクリックで、ソー�
 ### [テストを追加 #10](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/issues/10)
 
 #### 概要
-- [Feature/7 architecture](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/21)
+- [Feature/10 add tests ](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/22)
 - [Clean: Silence warnings](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/23)
 - トランスレータ、ビューモデルのユニットテストを追加
 - UIテストの追加
