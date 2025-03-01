@@ -24,7 +24,7 @@ struct GradientButtonStyle: ButtonStyle {
             .foregroundColor(.white)
             .cornerRadius(10)
             .shadow(color: Color.black.opacity(configuration.isPressed ? 0.1 : 0.3), radius: 5, x: 0, y: 5)
-            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)// shrink on tap
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0) // shrink on tap
             .animation(.easeOut, value: configuration.isPressed)
     }
 }

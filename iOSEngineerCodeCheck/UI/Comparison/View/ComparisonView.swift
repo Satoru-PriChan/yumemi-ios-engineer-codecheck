@@ -13,7 +13,7 @@ struct ComparisonView: View {
     @State private var isShowingErrorAlert = false
     @State private var errorMessage = ""
     @State private var navigationPath = NavigationPath()
-    
+
     init(
         repositoryModel: GithubRepositoryModel,
         githubRepository: GithubRepositoryProtocol = GithubRepository(),
@@ -27,39 +27,39 @@ struct ComparisonView: View {
             )
         )
     }
-    
+
     var body: some View {
         NavigationStack(path: $navigationPath) {
             root
-            .navigationTitle("Similar Repositories")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarRole(.editor) // Hide back button text
-            .loadingIndicator(isShowing: Binding<Bool>(
-                get: { viewModel.isLoading },
-                set: { _ in }
-            ))
-            .navigationDestination(for: GithubRepositoryModel.self) { repository in
-                DetailView(repository: repository, shouldShowComparisonButton: false)
-            }
-            .alert(isPresented: $isShowingErrorAlert) {
-                Alert(
-                    title: Text("Error"),
-                    message: Text(errorMessage),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
-            .onAppear {
-                viewModel.onError = { message in
-                    errorMessage = message
-                    isShowingErrorAlert = true
+                .navigationTitle("Similar Repositories")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbarRole(.editor) // Hide back button text
+                .loadingIndicator(isShowing: Binding<Bool>(
+                    get: { viewModel.isLoading },
+                    set: { _ in }
+                ))
+                .navigationDestination(for: GithubRepositoryModel.self) { repository in
+                    DetailView(repository: repository, shouldShowComparisonButton: false)
                 }
-                Task {
-                    try await viewModel.fetchSimilarRepositories()
+                .alert(isPresented: $isShowingErrorAlert) {
+                    Alert(
+                        title: Text("Error"),
+                        message: Text(errorMessage),
+                        dismissButton: .default(Text("OK"))
+                    )
                 }
-            }
+                .onAppear {
+                    viewModel.onError = { message in
+                        errorMessage = message
+                        isShowingErrorAlert = true
+                    }
+                    Task {
+                        try await viewModel.fetchSimilarRepositories()
+                    }
+                }
         }
     }
-    
+
     private var root: some View {
         VStack(alignment: .leading, spacing: 16) {
             if viewModel.comparisonModels.isEmpty {
@@ -82,7 +82,7 @@ struct ComparisonView: View {
 struct ComparisonListRow: View {
     let model: ComparisonModel
     let onTap: (GithubRepositoryModel) -> Void
-    
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {

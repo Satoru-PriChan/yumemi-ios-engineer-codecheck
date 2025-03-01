@@ -67,7 +67,7 @@ struct DetailView: View {
                     .frame(height: 80)
                     .contentShape(RoundedRectangle(cornerRadius: 10.0))
                 }
-                
+
                 // Stats Section
                 VStack(alignment: .leading, spacing: 8) {
                     StatRow(image: "star", label: "Stars", count: viewModel.repository.stargazersCount, accessibilityIdentifier: "DetailView_StarsLabel")
@@ -189,11 +189,12 @@ struct DetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarRole(.editor) // Hide back button text
         .fullScreenCover(
-            isPresented: $isComparisonViewPresented) {
-                ComparisonView(
-                    repositoryModel: viewModel.repository
-                )
-            }
+            isPresented: $isComparisonViewPresented)
+        {
+            ComparisonView(
+                repositoryModel: viewModel.repository
+            )
+        }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 isAnimated = true

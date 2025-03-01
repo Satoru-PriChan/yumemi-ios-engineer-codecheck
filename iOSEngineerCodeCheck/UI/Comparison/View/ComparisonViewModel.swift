@@ -46,7 +46,7 @@ final class ComparisonViewModel: ComparisonViewModelProtocol {
         do {
             // TF-IDFベクトル化
             guard let queryVector = try? getTFIDFVector(text: repositoryModel.description ?? "") else { return }
-            
+
             // リポジトリリスト
             let fetchedRepositories = try await githubRepository.searchRepositories(
                 query: "\(repositoryModel.name) \(repositoryModel.language)",
@@ -105,9 +105,9 @@ final class ComparisonViewModel: ComparisonViewModelProtocol {
     }
 
     private func calculateCosineSimilarity(queryVector: [Double], targetVector: [Double]) -> Double {
-        let dotProduct = zip(queryVector, targetVector).reduce(0, { $0 + $1.0 * $1.1 })
-        let magnitude1 = sqrt(queryVector.reduce(0, { $0 + $1 * $1 }))
-        let magnitude2 = sqrt(targetVector.reduce(0, { $0 + $1 * $1 }))
+        let dotProduct = zip(queryVector, targetVector).reduce(0) { $0 + $1.0 * $1.1 }
+        let magnitude1 = sqrt(queryVector.reduce(0) { $0 + $1 * $1 })
+        let magnitude2 = sqrt(targetVector.reduce(0) { $0 + $1 * $1 })
         return dotProduct / (magnitude1 * magnitude2)
     }
 }
