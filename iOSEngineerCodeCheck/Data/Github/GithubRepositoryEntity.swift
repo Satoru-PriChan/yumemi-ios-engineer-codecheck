@@ -8,9 +8,9 @@
 import Foundation
 
 struct GithubRepositoryResponseEntity: Codable, Sendable {
-    let totalCount: Int
-    let incompleteResults: Bool
-    let items: [GithubRepositoryEntity]
+    let totalCount: Int?
+    let incompleteResults: Bool?
+    let items: [GithubRepositoryEntity]?
 
     enum CodingKeys: String, CodingKey {
         case totalCount = "total_count"
@@ -20,81 +20,81 @@ struct GithubRepositoryResponseEntity: Codable, Sendable {
 }
 
 struct GithubRepositoryEntity: Codable, Sendable {
-    let id: Int
-    let nodeId: String
-    let name: String
-    let fullName: String
-    let owner: GithubOwnerEntity
-    let isPrivate: Bool
-    let htmlURL: String
+    let id: Int?
+    let nodeId: String?
+    let name: String?
+    let fullName: String?
+    let owner: GithubOwnerEntity?
+    let isPrivate: Bool?
+    let htmlURL: String?
     let description: String?
-    let isFork: Bool
-    let url: String
-    let createdAt: String
-    let updatedAt: String
-    let pushedAt: String
+    let isFork: Bool?
+    let url: String?
+    let createdAt: String?
+    let updatedAt: String?
+    let pushedAt: String?
     let homepage: String?
-    let size: Int
-    let stargazersCount: Int
-    let watchersCount: Int
+    let size: Int?
+    let stargazersCount: Int?
+    let watchersCount: Int?
     let language: String?
-    let forksCount: Int
-    let openIssuesCount: Int
+    let forksCount: Int?
+    let openIssuesCount: Int?
     let masterBranch: String?
-    let defaultBranch: String
-    let score: Int
-    let archiveURL: String
-    let assigneesURL: String
-    let blobsURL: String
-    let branchesURL: String
-    let collaboratorsURL: String
-    let commentsURL: String
-    let commitsURL: String
-    let compareURL: String
-    let contentsURL: String
-    let contributorsURL: String
-    let deploymentsURL: String
-    let downloadsURL: String
-    let eventsURL: String
-    let forksURL: String
-    let gitCommitsURL: String
-    let gitRefsURL: String
-    let gitTagsURL: String
-    let gitURL: String
-    let issueCommentURL: String
-    let issueEventsURL: String
-    let issuesURL: String
-    let keysURL: String
-    let labelsURL: String
-    let languagesURL: String
-    let mergesURL: String
-    let milestonesURL: String
-    let notificationsURL: String
-    let pullsURL: String
-    let releasesURL: String
-    let sshURL: String
-    let stargazersURL: String
-    let statusesURL: String
-    let subscribersURL: String
-    let subscriptionURL: String
-    let tagsURL: String
-    let teamsURL: String
-    let treesURL: String
-    let cloneURL: String
+    let defaultBranch: String?
+    let score: Int?
+    let archiveURL: String?
+    let assigneesURL: String?
+    let blobsURL: String?
+    let branchesURL: String?
+    let collaboratorsURL: String?
+    let commentsURL: String?
+    let commitsURL: String?
+    let compareURL: String?
+    let contentsURL: String?
+    let contributorsURL: String?
+    let deploymentsURL: String?
+    let downloadsURL: String?
+    let eventsURL: String?
+    let forksURL: String?
+    let gitCommitsURL: String?
+    let gitRefsURL: String?
+    let gitTagsURL: String?
+    let gitURL: String?
+    let issueCommentURL: String?
+    let issueEventsURL: String?
+    let issuesURL: String?
+    let keysURL: String?
+    let labelsURL: String?
+    let languagesURL: String?
+    let mergesURL: String?
+    let milestonesURL: String?
+    let notificationsURL: String?
+    let pullsURL: String?
+    let releasesURL: String?
+    let sshURL: String?
+    let stargazersURL: String?
+    let statusesURL: String?
+    let subscribersURL: String?
+    let subscriptionURL: String?
+    let tagsURL: String?
+    let teamsURL: String?
+    let treesURL: String?
+    let cloneURL: String?
     let mirrorURL: String?
-    let hooksURL: String
-    let svnURL: String
-    let forks: Int
-    let openIssues: Int
-    let watchers: Int
-    let hasIssues: Bool
-    let hasProjects: Bool
-    let hasPages: Bool
-    let hasWiki: Bool
-    let hasDownloads: Bool
-    let archived: Bool
-    let disabled: Bool
-    let visibility: String
+    let hooksURL: String?
+    let svnURL: String?
+    let forks: Int?
+    let openIssues: Int?
+    let watchers: Int?
+    let hasIssues: Bool?
+    let hasProjects: Bool?
+    let hasPages: Bool?
+    let hasWiki: Bool?
+    let hasDownloads: Bool?
+    let archived: Bool?
+    let disabled: Bool?
+    let visibility: String?
     let license: GithubLicenseEntity?
 
     enum CodingKeys: String, CodingKey {
@@ -177,81 +177,81 @@ struct GithubRepositoryEntity: Codable, Sendable {
     }
 
     init(
-        id: Int,
+        id: Int?,
         nodeId: String,
-        name: String,
-        fullName: String,
-        owner: GithubOwnerEntity,
-        isPrivate: Bool,
-        htmlURL: String,
+        name: String?,
+        fullName: String?,
+        owner: GithubOwnerEntity?,
+        isPrivate: Bool?,
+        htmlURL: String?,
         description: String?,
-        isFork: Bool,
-        url: String,
-        createdAt: String,
-        updatedAt: String,
-        pushedAt: String,
+        isFork: Bool?,
+        url: String?,
+        createdAt: String?,
+        updatedAt: String?,
+        pushedAt: String?,
         homepage: String?,
-        size: Int,
-        stargazersCount: Int,
-        watchersCount: Int,
+        size: Int?,
+        stargazersCount: Int?,
+        watchersCount: Int?,
         language: String?,
-        forksCount: Int,
-        openIssuesCount: Int,
+        forksCount: Int?,
+        openIssuesCount: Int?,
         masterBranch: String?,
-        defaultBranch: String,
-        score: Int,
-        archiveURL: String,
-        assigneesURL: String,
-        blobsURL: String,
-        branchesURL: String,
-        collaboratorsURL: String,
-        commentsURL: String,
-        commitsURL: String,
-        compareURL: String,
-        contentsURL: String,
-        contributorsURL: String,
-        deploymentsURL: String,
-        downloadsURL: String,
-        eventsURL: String,
-        forksURL: String,
-        gitCommitsURL: String,
-        gitRefsURL: String,
-        gitTagsURL: String,
-        gitURL: String,
-        issueCommentURL: String,
-        issueEventsURL: String,
-        issuesURL: String,
-        keysURL: String,
-        labelsURL: String,
-        languagesURL: String,
-        mergesURL: String,
-        milestonesURL: String,
-        notificationsURL: String,
-        pullsURL: String,
-        releasesURL: String,
-        sshURL: String,
-        stargazersURL: String,
-        statusesURL: String,
-        subscribersURL: String,
-        subscriptionURL: String,
-        tagsURL: String,
-        teamsURL: String,
-        treesURL: String,
-        cloneURL: String,
+        defaultBranch: String?,
+        score: Int?,
+        archiveURL: String?,
+        assigneesURL: String?,
+        blobsURL: String?,
+        branchesURL: String?,
+        collaboratorsURL: String?,
+        commentsURL: String?,
+        commitsURL: String?,
+        compareURL: String?,
+        contentsURL: String?,
+        contributorsURL: String?,
+        deploymentsURL: String?,
+        downloadsURL: String?,
+        eventsURL: String?,
+        forksURL: String?,
+        gitCommitsURL: String?,
+        gitRefsURL: String?,
+        gitTagsURL: String?,
+        gitURL: String?,
+        issueCommentURL: String?,
+        issueEventsURL: String?,
+        issuesURL: String?,
+        keysURL: String?,
+        labelsURL: String?,
+        languagesURL: String?,
+        mergesURL: String?,
+        milestonesURL: String?,
+        notificationsURL: String?,
+        pullsURL: String?,
+        releasesURL: String?,
+        sshURL: String?,
+        stargazersURL: String?,
+        statusesURL: String?,
+        subscribersURL: String?,
+        subscriptionURL: String?,
+        tagsURL: String?,
+        teamsURL: String?,
+        treesURL: String?,
+        cloneURL: String?,
         mirrorURL: String?,
-        hooksURL: String,
-        svnURL: String,
-        forks: Int,
-        openIssues: Int,
-        watchers: Int,
-        hasIssues: Bool,
-        hasProjects: Bool,
-        hasPages: Bool,
-        hasWiki: Bool,
-        hasDownloads: Bool,
-        archived: Bool,
-        disabled: Bool,
-        visibility: String,
+        hooksURL: String?,
+        svnURL: String?,
+        forks: Int?,
+        openIssues: Int?,
+        watchers: Int?,
+        hasIssues: Bool?,
+        hasProjects: Bool?,
+        hasPages: Bool?,
+        hasWiki: Bool?,
+        hasDownloads: Bool?,
+        archived: Bool?,
+        disabled: Bool?,
+        visibility: String?,
         license: GithubLicenseEntity?
     ) {
         self.id = id
@@ -335,24 +335,24 @@ struct GithubRepositoryEntity: Codable, Sendable {
 
 // オーナー情報を表す構造体
 struct GithubOwnerEntity: Codable, Sendable {
-    let login: String
-    let id: Int
-    let nodeId: String
-    let avatarURL: String
+    let login: String?
+    let id: Int?
+    let nodeId: String?
+    let avatarURL: String?
     let gravatarId: String?
-    let url: String
-    let receivedEventsURL: String
-    let type: String
-    let htmlURL: String
-    let followersURL: String
-    let followingURL: String
-    let gistsURL: String
-    let starredURL: String
-    let subscriptionsURL: String
-    let organizationsURL: String
-    let reposURL: String
-    let eventsURL: String
-    let siteAdmin: Bool
+    let url: String?
+    let receivedEventsURL: String?
+    let type: String?
+    let htmlURL: String?
+    let followersURL: String?
+    let followingURL: String?
+    let gistsURL: String?
+    let starredURL: String?
+    let subscriptionsURL: String?
+    let organizationsURL: String?
+    let reposURL: String?
+    let eventsURL: String?
+    let siteAdmin: Bool?
 
     enum CodingKeys: String, CodingKey {
         case login
@@ -376,24 +376,24 @@ struct GithubOwnerEntity: Codable, Sendable {
     }
 
     init(
-        login: String,
-        id: Int,
-        nodeId: String,
-        avatarURL: String,
+        login: String?,
+        id: Int?,
+        nodeId: String?,
+        avatarURL: String?,
         gravatarId: String?,
-        url: String,
-        receivedEventsURL: String,
-        type: String,
-        htmlURL: String,
-        followersURL: String,
-        followingURL: String,
-        gistsURL: String,
-        starredURL: String,
-        subscriptionsURL: String,
-        organizationsURL: String,
-        reposURL: String,
-        eventsURL: String,
-        siteAdmin: Bool
+        url: String?,
+        receivedEventsURL: String?,
+        type: String?,
+        htmlURL: String?,
+        followersURL: String?,
+        followingURL: String?,
+        gistsURL: String?,
+        starredURL: String?,
+        subscriptionsURL: String?,
+        organizationsURL: String?,
+        reposURL: String?,
+        eventsURL: String?,
+        siteAdmin: Bool?
     ) {
         self.login = login
         self.id = id
@@ -417,11 +417,11 @@ struct GithubOwnerEntity: Codable, Sendable {
 }
 
 struct GithubLicenseEntity: Codable, Sendable {
-    let key: String
-    let name: String
+    let key: String?
+    let name: String?
     let url: String?
     let spdxId: String?
-    let nodeId: String
+    let nodeId: String?
     let htmlURL: String?
 
     enum CodingKeys: String, CodingKey {
@@ -434,11 +434,11 @@ struct GithubLicenseEntity: Codable, Sendable {
     }
 
     init(
-        key: String,
-        name: String,
+        key: String?,
+        name: String?,
         url: String?,
         spdxId: String?,
-        nodeId: String,
+        nodeId: String?,
         htmlURL: String?
     ) {
         self.key = key
