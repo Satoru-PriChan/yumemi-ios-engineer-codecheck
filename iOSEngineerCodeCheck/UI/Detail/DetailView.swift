@@ -56,6 +56,7 @@ struct DetailView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundStyle(Color(uiColor: UIColor.label))
                             Text("Compare with other repositories")
+                                .accessibilityIdentifier("DetailView_ComparisonButtonLabel")
                                 .font(.headline)
                                 .background(Color.clear)
                                 .foregroundColor(Color(uiColor: UIColor.label))
