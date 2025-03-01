@@ -13,9 +13,11 @@ struct DetailView: View {
     @StateObject private var viewModel: DetailViewModel
     @State private var isAnimated = false
     @State private var isComparisonViewPresented = false
+    let shouldShowComparisonButton: Bool
 
-    init(repository: GithubRepositoryModel) {
+    init(repository: GithubRepositoryModel, shouldShowComparisonButton: Bool = true) {
         _viewModel = StateObject(wrappedValue: DetailViewModel(repository: repository))
+        self.shouldShowComparisonButton = shouldShowComparisonButton
     }
 
     var body: some View {
@@ -42,26 +44,27 @@ struct DetailView: View {
                     .accessibilityIdentifier("DetailView_LanguageLabel")
 
                 // Comparison button
-                Button(action: {
-                    // Transition to comparison view
-                    isComparisonViewPresented = true
-                }) {
-                    HStack(spacing: 2) {
-                        Image(systemName: "flag.checkered.2.crossed")
-                            .resizable()
-                            .frame(width: 22, height: 22)
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundStyle(Color(uiColor: UIColor.label))
-                        Text("Comparison with other repositories")
-                            .font(.headline)
-                            .padding()
-                            .background(Color.clear)
-                            .foregroundColor(Color(uiColor: UIColor.label))
-                            .cornerRadius(8)
+                if shouldShowComparisonButton {
+                    Button(action: {
+                        // Transition to comparison view
+                        isComparisonViewPresented = true
+                    }) {
+                        HStack(spacing: 2) {
+                            Image(systemName: "flag.checkered.2.crossed")
+                                .resizable()
+                                .frame(width: 22, height: 22)
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundStyle(Color(uiColor: UIColor.label))
+                            Text("Compare with other repositories")
+                                .font(.headline)
+                                .background(Color.clear)
+                                .foregroundColor(Color(uiColor: UIColor.label))
+                                .cornerRadius(8)
+                        }
                     }
+                    .buttonStyle(GradientButtonStyle())
+                    .frame(height: 80)
                     .contentShape(RoundedRectangle(cornerRadius: 10.0))
-                    .buttonBorderShape(.roundedRectangle(radius: 10))
-                    .background(Color(R.color.accentColor))
                 }
                 
                 // Stats Section

@@ -39,7 +39,7 @@ struct ComparisonView: View {
                 set: { _ in }
             ))
             .navigationDestination(for: GithubRepositoryModel.self) { repository in
-                DetailView(repository: repository)
+                DetailView(repository: repository, shouldShowComparisonButton: false)
             }
             .alert(isPresented: $isShowingErrorAlert) {
                 Alert(
@@ -93,7 +93,7 @@ struct ComparisonListRow: View {
                     .foregroundColor(.secondary)
                 Text("Similarity Score: \(String(format: "%.2f", model.similarityScore))")
                     .font(.title2)
-                    .foregroundColor(.blue)
+                    .foregroundColor(Color(R.color.darkBlueColor))
             }
             Spacer()
         }
