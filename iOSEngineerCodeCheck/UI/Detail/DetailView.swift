@@ -1,12 +1,23 @@
+//
+//  DetailView.swift
+//  iOSEngineerCodeCheck
+//
+//  Created by kento.yamazaki on 2025/02/28.
+//  Copyright © 2025 YUMEMI Inc. All rights reserved.
+//
+
 import Kingfisher
 import SwiftUI
 
 struct DetailView: View {
     @StateObject private var viewModel: DetailViewModel
     @State private var isAnimated = false
+    @State private var isComparisonViewPresented = false
+    let shouldShowComparisonButton: Bool
 
-    init(repository: GithubRepositoryModel) {
+    init(repository: GithubRepositoryModel, shouldShowComparisonButton: Bool = true) {
         _viewModel = StateObject(wrappedValue: DetailViewModel(repository: repository))
+        self.shouldShowComparisonButton = shouldShowComparisonButton
     }
 
     var body: some View {
@@ -31,6 +42,31 @@ struct DetailView: View {
                     .font(.body)
                     .foregroundColor(Color(UIColor.secondaryLabel))
                     .accessibilityIdentifier("DetailView_LanguageLabel")
+
+                // Comparison button
+                if shouldShowComparisonButton {
+                    Button(action: {
+                        // Transition to comparison view
+                        isComparisonViewPresented = true
+                    }) {
+                        HStack(spacing: 2) {
+                            Image(systemName: "flag.checkered.2.crossed")
+                                .resizable()
+                                .frame(width: 22, height: 22)
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundStyle(Color(uiColor: UIColor.label))
+                            Text("Compare with other repositories")
+                                .accessibilityIdentifier("DetailView_ComparisonButtonLabel")
+                                .font(.headline)
+                                .background(Color.clear)
+                                .foregroundColor(Color(uiColor: UIColor.label))
+                                .cornerRadius(8)
+                        }
+                    }
+                    .buttonStyle(GradientButtonStyle())
+                    .frame(height: 80)
+                    .contentShape(RoundedRectangle(cornerRadius: 10.0))
+                }
 
                 // Stats Section
                 VStack(alignment: .leading, spacing: 8) {
@@ -152,6 +188,13 @@ struct DetailView: View {
         .navigationTitle("Repository Details")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarRole(.editor) // Hide back button text
+        .fullScreenCover(
+            isPresented: $isComparisonViewPresented)
+        {
+            ComparisonView(
+                repositoryModel: viewModel.repository
+            )
+        }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 isAnimated = true

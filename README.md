@@ -175,19 +175,23 @@ XcodeProject > 右クリック > SwiftFormatPlugin をクリックで、ソー�
 - SearchViewにページネーション機能を追加
 - SeachViewの各行に言語情報と説明を追加
 
+[Feature/9 new feature similar repositories comparison](https://github.com/Satoru-PriChan/yumemi-ios-engineer-codecheck/pull/31)
+- 比較ビューを追加し、リポジトリを他の類似リポジトリと類似スコアで比較できるようになりました。
+
 #### プロンプト
 - `以下のSwiftファイルの検索画面に、Githubリポジトリのタイトルとスター数が表示されています。しかし、これに加えて、言語、詳細情報（一行のみ）も表示したいのですが、可能でしょうか？GithubRepositoryModelのlanguage、descriptionにそれら情報が入っています。`
 - `最高です！一点だけ、言語の欄の色のついた丸がありますが、この色って言語ごとに変えられたりしますか？`
 - `最高です！型安全のため、辞書型ではなく、専用のenumを定義してやることはできますか？`
+- `Github API search/repository を利用してGithub Repositoryを検索するアプリを作成しました。選択したある一つのリポジトリの詳細画面で、相互比較ボタンを押すと、似たようなGithub上のリポジトリを自動でピックアップし、相互の比較や実装例をみれる画面を出す機能を追加したいです。AIを使ってもいいです。以下と添付ファイルに既存のソースコードを貼りました。`
 
-#### 写真
+## 写真
 
-||||||
-|:---:|:---:|:---:|:---:|:---:|
-|  ![Simulator Screenshot - iPhone 16 - 2025-03-01 at 00 04 36](https://github.com/user-attachments/assets/49e3b4f4-b652-4338-9add-f5f898211f1c) |  ![Simulator Screenshot - iPhone 16 - 2025-03-01 at 00 04 44](https://github.com/user-attachments/assets/302bb8b6-9d30-4e41-9dc8-dfdcd5d7871d) |  ![Simulator Screenshot - iPhone 16 - 2025-03-01 at 00 04 53](https://github.com/user-attachments/assets/fe766e2a-32c6-4d30-9300-16980d7b807f) |  ![Simulator Screenshot - iPhone 16 - 2025-03-01 at 00 04 58](https://github.com/user-attachments/assets/e7917d14-78e4-4bbb-bddb-a44fa04f4dd6) |  ![Simulator Screenshot - iPhone 16 - 2025-03-01 at 00 05 02](https://github.com/user-attachments/assets/af354229-1ac1-4d77-9f78-8adfe4a45b1a) |
+|||||||
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|   ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-03-01 at 21 19 46](https://github.com/user-attachments/assets/f192fe94-166a-4e8d-9a53-88bb651b0ecc) |   ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-03-01 at 21 19 56](https://github.com/user-attachments/assets/10342d67-138a-4c86-bfb5-fb089d82dace) |   ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-03-01 at 21 20 10](https://github.com/user-attachments/assets/9a1a7300-feac-4937-84dc-885790c2e5a1) | ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-03-01 at 21 20 17](https://github.com/user-attachments/assets/7d0ceedd-e549-4c52-b429-52f776f496f8)  |  ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-03-01 at 21 20 25](https://github.com/user-attachments/assets/9ceb1fe2-41c6-4d57-bd95-55a4d16d6760) | ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-03-01 at 21 21 03](https://github.com/user-attachments/assets/2210e67c-fb40-44d7-9230-c81918f347f6) |
 
-#### 動画
-https://drive.google.com/file/d/1xDKs4NaMrrMqWlbgLV9S4kiWUXIS6DOy/view?usp=sharing
+## 動画
+- https://drive.google.com/file/d/1JlfqHjNYKoGGMEBjzvL-BS_34FYIiDe8/view?usp=sharing
 
 ## Attributes
 [Icon by Amazona Adorada](https://www.freepik.com/icons/broken)

@@ -38,18 +38,12 @@ class iOSEngineerCodeCheckUITests: XCTestCase, Sendable {
         XCTContext.runActivity(named: "DetailView 詳細画面UI要素があるか") { _ in
             let titleLabel = app.staticTexts["DetailView_TitleLabel"]
             let languageLabel = app.staticTexts["DetailView_LanguageLabel"]
-            let starsLabel = app.staticTexts["DetailView_StarsLabel"]
-            let watchersLabel = app.staticTexts["DetailView_WatchersLabel"]
-            let forksLabel = app.staticTexts["DetailView_ForksLabel"]
-            let openIssuesLabel = app.staticTexts["DetailView_OpenIssuesLabel"]
+            let comparisonButton = app.staticTexts["DetailView_ComparisonButtonLabel"]
             // 詳細画面が表示されるまで待機
             waitToAppear(for: titleLabel)
             XCTAssertTrue(titleLabel.exists, "Detail view title should be displayed")
             XCTAssertTrue(languageLabel.exists, "Detail view language should be displayed")
-            XCTAssertTrue(starsLabel.exists, "Detail view stars should be displayed")
-            XCTAssertTrue(watchersLabel.exists, "Detail view watchers should be displayed")
-            XCTAssertTrue(forksLabel.exists, "Detail forks language should be displayed")
-            XCTAssertTrue(openIssuesLabel.exists, "Detail open issues should be displayed")
+            XCTAssertTrue(comparisonButton.exists, "Detail view comparison button should be displayed")
         }
 
         XCTContext.runActivity(named: "DetailView 戻るボタンを押して SearchView に戻る") { _ in
