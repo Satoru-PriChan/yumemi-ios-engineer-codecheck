@@ -238,26 +238,26 @@ struct GithubRepositoryTranslatorTests {
         #expect(model.watchersCount == entity.watchersCount)
         #expect(model.forksCount == entity.forksCount)
         #expect(model.openIssuesCount == entity.openIssuesCount)
-        #expect(model.avatarURL == entity.owner.avatarURL)
+        #expect(model.avatarURL == entity.owner?.avatarURL)
 
         // オーナー情報の検証
-        #expect(model.login == entity.owner.login)
-        #expect(model.ownerId == entity.owner.id)
-        #expect(model.ownerNodeId == entity.owner.nodeId)
-        #expect(model.gravatarId == entity.owner.gravatarId)
-        #expect(model.ownerUrl == entity.owner.url)
-        #expect(model.receivedEventsURL == entity.owner.receivedEventsURL)
-        #expect(model.type == entity.owner.type)
-        #expect(model.ownerHtmlURL == entity.owner.htmlURL)
-        #expect(model.followersURL == entity.owner.followersURL)
-        #expect(model.followingURL == entity.owner.followingURL)
-        #expect(model.gistsURL == entity.owner.gistsURL)
-        #expect(model.starredURL == entity.owner.starredURL)
-        #expect(model.subscriptionsURL == entity.owner.subscriptionsURL)
-        #expect(model.organizationsURL == entity.owner.organizationsURL)
-        #expect(model.reposURL == entity.owner.reposURL)
-        #expect(model.ownerEventsURL == entity.owner.eventsURL)
-        #expect(model.siteAdmin == entity.owner.siteAdmin)
+        #expect(model.login == entity.owner?.login)
+        #expect(model.ownerId == entity.owner?.id)
+        #expect(model.ownerNodeId == entity.owner?.nodeId)
+        #expect(model.gravatarId == entity.owner?.gravatarId)
+        #expect(model.ownerUrl == entity.owner?.url)
+        #expect(model.receivedEventsURL == entity.owner?.receivedEventsURL)
+        #expect(model.type == entity.owner?.type)
+        #expect(model.ownerHtmlURL == entity.owner?.htmlURL)
+        #expect(model.followersURL == entity.owner?.followersURL)
+        #expect(model.followingURL == entity.owner?.followingURL)
+        #expect(model.gistsURL == entity.owner?.gistsURL)
+        #expect(model.starredURL == entity.owner?.starredURL)
+        #expect(model.subscriptionsURL == entity.owner?.subscriptionsURL)
+        #expect(model.organizationsURL == entity.owner?.organizationsURL)
+        #expect(model.reposURL == entity.owner?.reposURL)
+        #expect(model.ownerEventsURL == entity.owner?.eventsURL)
+        #expect(model.siteAdmin == entity.owner?.siteAdmin)
 
         // ライセンス情報の検証
         if let license = entity.license {
@@ -493,48 +493,48 @@ struct GithubRepositoryTranslatorTests {
     )
     func multiTranslation(_ responseEntity: GithubRepositoryResponseEntity) async throws {
         let responseModel = translator.translate(from: responseEntity)
-        #expect(responseModel.items.count == responseEntity.items.count)
+        #expect(responseModel.items.count == responseEntity.items?.count)
         #expect(responseModel.totalCount == responseEntity.totalCount)
 
         for i in 0 ..< responseModel.items.count {
             let model = responseModel.items[i]
-            let entity = responseEntity.items[i]
+            let entity = responseEntity.items?[i]
 
             // 基本情報の検証
-            #expect(model.repositoryID == entity.id)
-            #expect(model.fullName == entity.fullName)
-            if let language = entity.language {
+            #expect(model.repositoryID == entity?.id)
+            #expect(model.fullName == entity?.fullName)
+            if let language = entity?.language {
                 #expect(model.language == language)
             } else {
                 #expect(model.language == "Unknown Language")
             }
-            #expect(model.stargazersCount == entity.stargazersCount)
-            #expect(model.watchersCount == entity.watchersCount)
-            #expect(model.forksCount == entity.forksCount)
-            #expect(model.openIssuesCount == entity.openIssuesCount)
-            #expect(model.avatarURL == entity.owner.avatarURL)
+            #expect(model.stargazersCount == entity?.stargazersCount)
+            #expect(model.watchersCount == entity?.watchersCount)
+            #expect(model.forksCount == entity?.forksCount)
+            #expect(model.openIssuesCount == entity?.openIssuesCount)
+            #expect(model.avatarURL == entity?.owner?.avatarURL)
 
             // オーナー情報の検証
-            #expect(model.login == entity.owner.login)
-            #expect(model.ownerId == entity.owner.id)
-            #expect(model.ownerNodeId == entity.owner.nodeId)
-            #expect(model.gravatarId == entity.owner.gravatarId)
-            #expect(model.ownerUrl == entity.owner.url)
-            #expect(model.receivedEventsURL == entity.owner.receivedEventsURL)
-            #expect(model.type == entity.owner.type)
-            #expect(model.ownerHtmlURL == entity.owner.htmlURL)
-            #expect(model.followersURL == entity.owner.followersURL)
-            #expect(model.followingURL == entity.owner.followingURL)
-            #expect(model.gistsURL == entity.owner.gistsURL)
-            #expect(model.starredURL == entity.owner.starredURL)
-            #expect(model.subscriptionsURL == entity.owner.subscriptionsURL)
-            #expect(model.organizationsURL == entity.owner.organizationsURL)
-            #expect(model.reposURL == entity.owner.reposURL)
-            #expect(model.ownerEventsURL == entity.owner.eventsURL)
-            #expect(model.siteAdmin == entity.owner.siteAdmin)
+            #expect(model.login == entity?.owner?.login)
+            #expect(model.ownerId == entity?.owner?.id)
+            #expect(model.ownerNodeId == entity?.owner?.nodeId)
+            #expect(model.gravatarId == entity?.owner?.gravatarId)
+            #expect(model.ownerUrl == entity?.owner?.url)
+            #expect(model.receivedEventsURL == entity?.owner?.receivedEventsURL)
+            #expect(model.type == entity?.owner?.type)
+            #expect(model.ownerHtmlURL == entity?.owner?.htmlURL)
+            #expect(model.followersURL == entity?.owner?.followersURL)
+            #expect(model.followingURL == entity?.owner?.followingURL)
+            #expect(model.gistsURL == entity?.owner?.gistsURL)
+            #expect(model.starredURL == entity?.owner?.starredURL)
+            #expect(model.subscriptionsURL == entity?.owner?.subscriptionsURL)
+            #expect(model.organizationsURL == entity?.owner?.organizationsURL)
+            #expect(model.reposURL == entity?.owner?.reposURL)
+            #expect(model.ownerEventsURL == entity?.owner?.eventsURL)
+            #expect(model.siteAdmin == entity?.owner?.siteAdmin)
 
             // ライセンス情報の検証
-            if let license = entity.license {
+            if let license = entity?.license {
                 #expect(model.key == license.key)
                 #expect(model.licenseName == license.name)
                 #expect(model.licenseUrl == license.url ?? "N/A")
