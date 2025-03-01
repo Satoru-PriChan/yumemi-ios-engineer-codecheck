@@ -12,6 +12,7 @@ import SwiftUI
 struct DetailView: View {
     @StateObject private var viewModel: DetailViewModel
     @State private var isAnimated = false
+    @State private var isComparisonViewPresented = false
 
     init(repository: GithubRepositoryModel) {
         _viewModel = StateObject(wrappedValue: DetailViewModel(repository: repository))
@@ -40,6 +41,29 @@ struct DetailView: View {
                     .foregroundColor(Color(UIColor.secondaryLabel))
                     .accessibilityIdentifier("DetailView_LanguageLabel")
 
+                // Comparison button
+                Button(action: {
+                    // Transition to comparison view
+                    isComparisonViewPresented = true
+                }) {
+                    HStack(spacing: 2) {
+                        Image(systemName: "flag.checkered.2.crossed")
+                            .resizable()
+                            .frame(width: 22, height: 22)
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundStyle(Color(uiColor: UIColor.label))
+                        Text("Comparison with other repositories")
+                            .font(.headline)
+                            .padding()
+                            .background(Color.clear)
+                            .foregroundColor(Color(uiColor: UIColor.label))
+                            .cornerRadius(8)
+                    }
+                    .contentShape(RoundedRectangle(cornerRadius: 10.0))
+                    .buttonBorderShape(.roundedRectangle(radius: 10))
+                    .background(Color(R.color.accentColor))
+                }
+                
                 // Stats Section
                 VStack(alignment: .leading, spacing: 8) {
                     StatRow(image: "star", label: "Stars", count: viewModel.repository.stargazersCount, accessibilityIdentifier: "DetailView_StarsLabel")
@@ -160,6 +184,12 @@ struct DetailView: View {
         .navigationTitle("Repository Details")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarRole(.editor) // Hide back button text
+        .fullScreenCover(
+            isPresented: $isComparisonViewPresented) {
+                ComparisonView(
+                    repositoryModel: viewModel.repository
+                )
+            }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 isAnimated = true
