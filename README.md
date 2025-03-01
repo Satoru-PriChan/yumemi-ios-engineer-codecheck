@@ -9,9 +9,16 @@
 ## アプリ仕様
 本アプリは GitHub のリポジトリーを検索するアプリです。
 
-- 動作イメージ: https://drive.google.com/file/d/1xDKs4NaMrrMqWlbgLV9S4kiWUXIS6DOy/view?usp=sharing
+### 写真
 
-### 環境
+|||||||
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|   ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-03-01 at 21 19 46](https://github.com/user-attachments/assets/f192fe94-166a-4e8d-9a53-88bb651b0ecc) |   ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-03-01 at 21 19 56](https://github.com/user-attachments/assets/10342d67-138a-4c86-bfb5-fb089d82dace) |   ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-03-01 at 21 20 10](https://github.com/user-attachments/assets/9a1a7300-feac-4937-84dc-885790c2e5a1) | ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-03-01 at 21 20 17](https://github.com/user-attachments/assets/7d0ceedd-e549-4c52-b429-52f776f496f8)  |  ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-03-01 at 21 20 25](https://github.com/user-attachments/assets/9ceb1fe2-41c6-4d57-bd95-55a4d16d6760) | ![Simulator Screenshot - iPhone SE 2nd iOS 18 3 - 2025-03-01 at 21 21 03](https://github.com/user-attachments/assets/2210e67c-fb40-44d7-9230-c81918f347f6) |
+
+### 動画
+- https://drive.google.com/file/d/1JlfqHjNYKoGGMEBjzvL-BS_34FYIiDe8/view?usp=sharing
+
+## 環境
 
 - IDE: 2025/2/5(火)時点での安定版（Xcode16.2）
 - Swift：2025/2/5(火)時点での安定版（Swift 6.0.3）
@@ -21,13 +28,13 @@
     - [onevcat/Kingfisher](https://github.com/onevcat/Kingfisher) 8.2.0
     - [mac-cain13/R.swift](https://github.com/mac-cain13/R.swift) 7.8.0
 
-### 動作
+## 動作
 
 1. 何かしらのキーワードを入力, 必要なら画面右上の検索条件ボタンをタップし検索条件を設定
 2. GitHub API（`search/repositories`）でリポジトリーを検索し、結果一覧を概要（リポジトリ名）で表示
 3. 特定の結果を選択したら、該当リポジトリの詳細（リポジトリ名、オーナーアイコン、プロジェクト言語、Star 数、Watcher 数、Fork 数、Issue 数）を表示
 
-### リンティング
+## リンティング
 
 XcodeProject > 右クリック > SwiftFormatPlugin をクリックで、ソースコードが自動で綺麗に修正される。
 <img width="1440" alt="截屏2025-02-25 15 52 09" src="https://github.com/user-attachments/assets/b487abd8-9ac8-4cdf-9ab4-ab8af7b2569f" />
